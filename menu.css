@@ -1,0 +1,16 @@
+.nav-link {
+    color: black;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+nav{
+    position: relative;
+    padding: 1% 5% 0% 0%;
+}
+
+.logo{
+    position: absolute;
+    top: 20%; 
+    left: 5%; 
+}

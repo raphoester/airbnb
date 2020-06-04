@@ -1,0 +1,19 @@
+.type{
+    left: 5%;
+    position: relative;
+    padding-top: 5%;
+}
+
+.field{
+    max-width:300px;
+}
+
+.btn_ajt{
+    padding-top: 1.2%;
+}
+
+.btn.btn-light{
+    border: 1px solid black;
+    border-radius: 8px;
+    background: rgba(238, 49, 175, 0.637);
+}
