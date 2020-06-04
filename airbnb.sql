@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : jeu. 04 juin 2020 à 14:52
+-- Généré le : jeu. 04 juin 2020 à 17:56
 -- Version du serveur :  10.4.11-MariaDB
 -- Version de PHP : 7.4.4
 
@@ -33,18 +33,21 @@ CREATE TABLE `annonce` (
   `titre` varchar(50) NOT NULL,
   `description` varchar(700) DEFAULT NULL,
   `locataires_max` int(3) NOT NULL,
-  `prix` varchar(30) DEFAULT NULL
+  `prix` varchar(30) DEFAULT NULL,
+  `image` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Déchargement des données de la table `annonce`
 --
 
-INSERT INTO `annonce` (`id_annonce`, `ville`, `titre`, `description`, `locataires_max`, `prix`) VALUES
-(1, 'Porto', 'appartement dans le centre ville', 'vachement cosy lorem ipsum dolor', 5, '125'),
-(2, 'Porto', 'appart de luxe', 'la description qu\'est bien', 5, '70'),
-(3, 'Porto', 'appart de merde', 'description', 1, '35'),
-(4, 'Porto', 'palace avec piscine', 'desc', 7, '150');
+INSERT INTO `annonce` (`id_annonce`, `ville`, `titre`, `description`, `locataires_max`, `prix`, `image`) VALUES
+(1, 'Porto', 'appartement dans le centre ville', 'vachement cosy lorem ipsum dolor', 5, '125', 'img/porto.jpg'),
+(2, 'Porto', 'appart de luxe', 'la description qu\'est bien', 5, '70', 'img/porto2.jpg'),
+(3, 'Porto', 'appart de merde', 'description', 1, '35', ''),
+(4, 'Porto', 'palace avec piscine', 'desc', 7, '150', ''),
+(5, 'aa', 'aa', 'aa', 21, '12', ''),
+(6, 'aa', 'aa', 'aa', 21, '12', '');
 
 -- --------------------------------------------------------
 
@@ -129,7 +132,7 @@ ALTER TABLE `utilisateur`
 -- AUTO_INCREMENT pour la table `annonce`
 --
 ALTER TABLE `annonce`
-  MODIFY `id_annonce` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_annonce` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT pour la table `reservation`
