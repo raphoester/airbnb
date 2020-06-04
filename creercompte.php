@@ -62,5 +62,5 @@ if (!empty($_POST))
 <input type="submit" value="Créer mon compte" name="valider" id="validation">
 </form>
 
-<p>Vous préférez <a href="connexion.php">vous connecter</a> ? :)</p>
+<p>Vous préférez <a href="connexion.php">vous connecter</a> ? </p>
 <?php include("inc/footer.php");?>
