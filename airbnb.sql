@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : jeu. 04 juin 2020 à 17:56
+-- Généré le : ven. 05 juin 2020 à 13:01
 -- Version du serveur :  10.4.11-MariaDB
 -- Version de PHP : 7.4.4
 
@@ -34,20 +34,20 @@ CREATE TABLE `annonce` (
   `description` varchar(700) DEFAULT NULL,
   `locataires_max` int(3) NOT NULL,
   `prix` varchar(30) DEFAULT NULL,
-  `image` varchar(200) NOT NULL
+  `id_utilisateur` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Déchargement des données de la table `annonce`
 --
 
-INSERT INTO `annonce` (`id_annonce`, `ville`, `titre`, `description`, `locataires_max`, `prix`, `image`) VALUES
-(1, 'Porto', 'appartement dans le centre ville', 'vachement cosy lorem ipsum dolor', 5, '125', 'img/porto.jpg'),
-(2, 'Porto', 'appart de luxe', 'la description qu\'est bien', 5, '70', 'img/porto2.jpg'),
-(3, 'Porto', 'appart de merde', 'description', 1, '35', ''),
-(4, 'Porto', 'palace avec piscine', 'desc', 7, '150', ''),
-(5, 'aa', 'aa', 'aa', 21, '12', ''),
-(6, 'aa', 'aa', 'aa', 21, '12', '');
+INSERT INTO `annonce` (`id_annonce`, `ville`, `titre`, `description`, `locataires_max`, `prix`, `id_utilisateur`) VALUES
+(1, 'Porto', 'appartement dans le centre ville', 'vachement cosy lorem ipsum dolor', 5, '125', 4),
+(2, 'Porto', 'appart de luxe', 'la description qu\'est bien', 5, '70', 4),
+(3, 'Porto', 'appart de merde', 'description', 1, '35', 5),
+(4, 'Porto', 'palace avec piscine', 'desc', 7, '150', 3),
+(5, 'Porto', 'Grosse maison au bord de la mer', 'C\'est une grosse maison au bord de la mer et il y a même des toilettes dedans', 12, '61', 2),
+(6, 'Porto', 'Taudis dans le centre ville', 'tu vas vivre dans une poubelle jtexplik :  ^)', 1, '1', 5);
 
 -- --------------------------------------------------------
 
@@ -98,7 +98,11 @@ CREATE TABLE `utilisateur` (
 --
 
 INSERT INTO `utilisateur` (`id_utilisateur`, `prenom`, `nom`, `sexe`, `email`, `date_creation_compte`, `note`, `statut`, `mot_de_passe`) VALUES
-(1, 'alexis', 'richy', 'm', 'alexisrichy@gmail.com', '2011-12-10', 4.5, 'ambassadeur', 'caca');
+(1, 'alexis', 'richy', 'm', 'alexisrichy@gmail.com', '2011-12-10', 4.5, 'ambassadeur', 'd2104a400c7f629a197f33bb33fe80c0'),
+(2, 'abc', 'abc', '', 'abc@abc.abc', '2020-06-04', NULL, 'Nouvel arrivant', 'd2104a400c7f629a197f33bb33fe80c0'),
+(3, 'bécu', 'Juliette', '', 'juliettebecu@gmail.com', '2020-06-04', NULL, 'Nouvel arrivant', 'd41d8cd98f00b204e9800998ecf8427e'),
+(4, 'proutent', 'jeanne charlotte ', 'm', 'jc@jc.fr', '2020-06-04', NULL, 'Nouvel arrivant', 'd41d8cd98f00b204e9800998ecf8427e'),
+(5, 'Marcia', 'De Noord', 'm', 'marciadenoord@gmail.com', '2020-06-04', NULL, 'Nouvel arrivant', 'e9d3233b0e482f2e96b7a64f90a04e48');
 
 --
 -- Index pour les tables déchargées
@@ -108,7 +112,8 @@ INSERT INTO `utilisateur` (`id_utilisateur`, `prenom`, `nom`, `sexe`, `email`, `
 -- Index pour la table `annonce`
 --
 ALTER TABLE `annonce`
-  ADD PRIMARY KEY (`id_annonce`);
+  ADD PRIMARY KEY (`id_annonce`),
+  ADD KEY `fk_id_utilisateur` (`id_utilisateur`);
 
 --
 -- Index pour la table `reservation`
@@ -144,11 +149,17 @@ ALTER TABLE `reservation`
 -- AUTO_INCREMENT pour la table `utilisateur`
 --
 ALTER TABLE `utilisateur`
-  MODIFY `id_utilisateur` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_utilisateur` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Contraintes pour les tables déchargées
 --
+
+--
+-- Contraintes pour la table `annonce`
+--
+ALTER TABLE `annonce`
+  ADD CONSTRAINT `fk_id_utilisateur` FOREIGN KEY (`id_utilisateur`) REFERENCES `utilisateur` (`id_utilisateur`);
 
 --
 -- Contraintes pour la table `reservation`

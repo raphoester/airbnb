@@ -1,29 +1,31 @@
 <?php include("inc/header.php");?>
 <?php
 
-if (!empty($_POST["email"]) & !empty($_POST["mdp"]))
+if (!empty($_POST["email"]) && !empty($_POST["mdp"]))
 {
     
-    foreach ($pdo->query("SELECT email, mot_de_passe FROM utilisateur;") as $row)
+    foreach ($pdo->query("SELECT email, mot_de_passe, id_utilisateur FROM utilisateur;") as $row)
     {
-        if (($row["email"] == $_POST["email"]) && ($row["mot_de_passe"] == $_POST["mdp"]))
+        if (($row["email"] == $_POST["email"]) && ($row["mot_de_passe"] == md5($_POST["mdp"])))
         {
             setcookie("email", $_POST["email"], time()+5000000, '/');
-            setcookie("mdp", $_POST["mdp"], time()+5000000, '/');
+            setcookie("mdp", md5($_POST["mdp"]), time()+5000000, '/');
             $_SESSION["login"] = 1;
+            $_SESSION["id"] = $row["id_utilisateur"];
             header("Location: compte.php");
             exit();
         }
     }
 }
 
-if (!empty($_COOKIE["email"]) & !empty($_COOKIE["mdp"]))
+if (!empty($_COOKIE["email"]) && !empty($_COOKIE["mdp"]))
 {
-    foreach ($pdo->query("SELECT email, mot_de_passe FROM utilisateur;") as $row)
+    foreach ($pdo->query("SELECT email, mot_de_passe, id_utilisateur FROM utilisateur;") as $row)
     {
-        if (($row["email"] == $_COOKIE["email"]) && ($row["mot_de_passe"] == $_COOKIE["mdp"]))
+        if (($row["email"] == $_COOKIE["email"]) && ($row["mot_de_passe"] == md5($_COOKIE["mdp"])))
         {
             $_SESSION["login"] = 1;
+            $_SESSION["id"] = $row["id_utilisateur"];
             header("Location: compte.php");
             exit();
         }

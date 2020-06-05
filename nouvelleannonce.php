@@ -4,16 +4,22 @@
 <?php 
 if (empty($_SESSION["login"]) || $_SESSION["login"] != 1)
 {
-    
     header("Location: connexion.php");
     exit();   
 }
 else if(!empty($_POST))
 {
-    $result = $pdo->exec("INSERT INTO experiences (titre, entreprise, description, date_debut, date_fin) VALUES('".$_POST['titreExperience']."','".$_POST['entrepriseExperience']."','".$_POST['descriptionExperience']."','".$_POST['dateDebutExperience']."','".$_POST['dateFinExperience']."');");
+    $description = str_replace("'", "\'", $_POST['description']);
+    $description = str_replace('"', "\"", $description);
 
+    $titre = str_replace("'", "\'", $_POST['titre']);
+    $titre = str_replace('"', "\"", $titre);
 
+    $ville = str_replace("'", "\'", $_POST['ville']);
+    $ville = str_replace('"', "\"", $ville);
 
+    $sql = "INSERT INTO annonce (titre, description, ville, prix, locataires_max, id_utilisateur) VALUES('".$titre."','".$description."','".$ville."',".$_POST['prix'].",".$_POST['places'].",".$donnees_utilisateur["id_utilisateur"].");";
+    $result = $pdo->exec($sql);
 }
 
 
@@ -27,30 +33,30 @@ else if(!empty($_POST))
     </div>
     <div>
         <form action="" method = "post">
-        <div>
+        <div class = "field">
             <label for="titre">Titre de l'annonce</label>
-            <input type="text" name="titre" required>
+            <input type="text" name="titre" id="titre" required>
         </div>
-        <div>
+        <div class="field">
             <label for="desc">Description</label>
             <textarea name="description" id="desc" cols="30" rows="5" required></textarea>
         </div>
-        <div>
-            <label for="prix">Prix par jour</label>
+        <div class="field">
+            <label for="prix">Prix par jour et par personne</label>
             <input type="number" min="1" step="any" value="" id="prix" name="prix" required>€
         </div>
 
-        <div>
+        <div class="field">
             <label for="ville">Ville</label>
-            <input type="text" id="ville" placeholder="Paris" required>
+            <input type="text" id="ville" placeholder="Porto" name="ville" required>
         </div>
 
-        <div>
+        <div class="field">
             <label for="places">Nombre maximal de locataires</label>
             <input type="number" min="1" id="places" name="places" max = 150 required>
         </div>
 
-        <div>
+        <div class="field">
             <input type="submit" value = "Valider !">
         </div>
 

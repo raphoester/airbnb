@@ -31,12 +31,12 @@
             </div>
 
             <div class="field">
-                <label for="prixMin">Prix minimum</label>
+                <label for="prixMin">Prix minimum (par jour et par personne)</label>
                 <input type="number" name="prixMin" min = 0 max = 100000 id="prixMin">
             </div>
 
             <div class="field">
-                <label for="prixMax">Prix maximum</label>
+                <label for="prixMax">Prix maximum  (par jour et par personne)</label>
                 <input type="number" name="prixMax" min = 0 max = 100000 id="prixMax">
             </div>
 
