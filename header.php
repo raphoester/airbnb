@@ -1,6 +1,12 @@
 <?php 
     session_start();
     $pdo = new PDO("mysql:host=localhost; dbname=airbnb", "root", "" , array(PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION));
+    if (!empty($_SESSION["id"])){
+        $sql = "select * from utilisateur where id_utilisateur =". $_SESSION['id'].";";
+        $pdostatementDU = $pdo->query($sql);
+        $donnees_utilisateur = ($pdostatementDU->fetch());
+    }
+
 ?>
 
 <!DOCTYPE html>
@@ -24,7 +30,7 @@
     <nav>
         <ul class="nav justify-content-end">
         <a href="index.php">
-        <img class="logo" src="img/logo_airbnb1.jpg" alt="logo" href="index.php">
+        <img class="logo" src="img/logo_airbnb.jpg" alt="logo" href="index.php">
 
         <?php
         if(empty($_SESSION["login"]))
