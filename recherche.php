@@ -61,9 +61,10 @@ if(!empty($_GET))
 
             <div>
             <h3><a href="<?php echo 'annonce.php?id='.$tout[$i]["id_annonce"]?>"><?php echo $tout[$i]["titre"]?></a></h3>
+                <img width="300px" height="200px" src="<?php echo $tout[$i]['image']?>">
                 <h4><?php echo $prixSejour;?> €</h4>
-              <h5><?php echo ($tout[$i]['ville']);?></h5>
             </div>
+            
         <?php
         }
         else 

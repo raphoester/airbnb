@@ -18,10 +18,18 @@ else if(!empty($_POST))
     $ville = str_replace("'", "\'", $_POST['ville']);
     $ville = str_replace('"', "\"", $ville);
 
-    $sql = "INSERT INTO annonce (titre, description, ville, prix, locataires_max, id_utilisateur) VALUES('".$titre."','".$description."','".$ville."',".$_POST['prix'].",".$_POST['places'].",".$donnees_utilisateur["id_utilisateur"].");";
+
+    var_dump($_FILES);
+
+    $filename = $_FILES["img"]["name"];
+    $tempname = $_FILES["img"]["tmp_name"];
+    $folder = "img/" .$filename;
+    move_uploaded_file($tempname, $folder);
+
+    $sql = "INSERT INTO annonce (titre, description, ville, prix, locataires_max, id_utilisateur, image) VALUES('".$titre."','".$description."','".$ville."',".$_POST['prix'].",".$_POST['places'].",".$donnees_utilisateur["id_utilisateur"].",'".$folder."');";
+    echo($sql);
     $result = $pdo->exec($sql);
 }
-
 
 
 ?>
@@ -32,7 +40,7 @@ else if(!empty($_POST))
         <h1>Créer une annonce</h1>
     </div>
     <div>
-        <form action="" method = "post">
+        <form action="" method = "post" enctype="multipart/form-data">
         <div class = "field">
             <label for="titre">Titre de l'annonce</label>
             <input type="text" name="titre" id="titre" required>
@@ -54,6 +62,11 @@ else if(!empty($_POST))
         <div class="field">
             <label for="places">Nombre maximal de locataires</label>
             <input type="number" min="1" id="places" name="places" max = 150 required>
+        </div>
+
+        <div>
+            <label for="img">Images</label>
+            <input type="file" id="img" name="img">
         </div>
 
         <div class="field">

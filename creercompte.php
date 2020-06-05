@@ -31,10 +31,8 @@ if (!empty($_POST))
         $email = str_replace("'", "\'", $_POST['email']);
         $email = str_replace('"', "\"", $email);
 
-
-        if ($_POST["sexe"] == "Femme")
-        {$sexe = "f";}
-        else{$sexe = "m";}
+        if ($_POST["sexe"] == "h")
+        {$sexe = "m";}
         $mot_de_passe = md5($_POST["mdp"]);
         $sql = "insert into utilisateur(prenom, nom, sexe, email, date_creation_compte, statut, mot_de_passe) values('$prenom', '$nom', '$sexe', '$email', CURDATE(), 'Nouvel arrivant', '$mot_de_passe');";
         echo $sql;
@@ -42,12 +40,7 @@ if (!empty($_POST))
         header("Location: connexion.php");
         exit();
     }
-
-
-
 }
-
-
 ?>
 
 
