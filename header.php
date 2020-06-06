@@ -5,7 +5,31 @@
         $sql = "select * from utilisateur where id_utilisateur =". $_SESSION['id'].";";
         $pdostatementDU = $pdo->query($sql);
         $donnees_utilisateur = ($pdostatementDU->fetch());
+
+        $donnees_utilisateur["nom"] = str_replace("'", "\'", $donnees_utilisateur['nom']);
+        $donnees_utilisateur["nom"] = str_replace('"', "\"", $donnees_utilisateur["nom"]);
+
+        $donnees_utilisateur["prenom"] = str_replace("'", "\'", $donnees_utilisateur['prenom']);
+        $donnees_utilisateur["prenom"] = str_replace('"', "\"", $donnees_utilisateur["prenom"]);
+    
+        $donnees_utilisateur["email"] = str_replace("'", "\'", $donnees_utilisateur['email']);
+        $donnees_utilisateur["email"] = str_replace('"', "\"", $donnees_utilisateur["email"]);
+
+        $donnees_utilisateur["statut"] = str_replace("'", "\'", $donnees_utilisateur['statut']);
+        $donnees_utilisateur["statut"] = str_replace('"', "\"", $donnees_utilisateur["statut"]);
+    
     }
+    if (!empty($_GET["dec"])){
+
+        session_unset();
+        session_destroy();
+        setcookie("email", FALSE, time() - 3600, "/");
+        setcookie("mdp", FALSE, time() - 3600, "/");
+        header("location: index.php");
+        exit();
+    }
+
+
 
 ?>
 
@@ -29,8 +53,7 @@
 <header>
     <nav>
         <ul class="nav justify-content-end">
-        <a href="index.php">
-        <img class="logo" src="img/logo_airbnb.jpg" alt="logo" href="index.php">
+            <a href="index.php"><img class="logo" src="img/logo_airbnb.jpg" alt="logo" href="index.php"></a>
 
         <?php
         if(empty($_SESSION["login"]))
@@ -48,6 +71,10 @@
         else if ($_SESSION["login"] == 1)
         {?>
 
+        <li class ="nav-item">
+            <p class="nav-link"><?php echo $donnees_utilisateur["capital"];?> €</p>
+        </li>
+
         <li class="nav-item">
             <a class="nav-link" href="nouvelleannonce.php">Poster une annonce</a>
         </li>
@@ -55,6 +82,11 @@
         <li class="nav-item">
             <a class="nav-link" href="compte.php">Espace personnel</a>
         </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="?dec=True">Déconnexion</a>
+        </li>
+
         <?php } ?>
         </ul>
     </nav>
