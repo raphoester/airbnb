@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : ven. 05 juin 2020 à 16:04
+-- Généré le : Dim 07 juin 2020 à 20:14
 -- Version du serveur :  10.4.11-MariaDB
 -- Version de PHP : 7.4.4
 
@@ -61,6 +61,30 @@ INSERT INTO `annonce` (`id_annonce`, `ville`, `titre`, `description`, `locataire
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `message`
+--
+
+CREATE TABLE `message` (
+  `id_message` int(6) NOT NULL,
+  `date_envoi` datetime NOT NULL,
+  `contenu` varchar(1000) DEFAULT NULL,
+  `id_destinataire` int(6) NOT NULL,
+  `id_expediteur` int(6) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Déchargement des données de la table `message`
+--
+
+INSERT INTO `message` (`id_message`, `date_envoi`, `contenu`, `id_destinataire`, `id_expediteur`) VALUES
+(1, '2020-01-01 23:59:59', 'salut ceci est mon premier message', 6, 5),
+(2, '2020-01-02 23:59:59', 'deuxieme message plus tard', 6, 5),
+(3, '2020-01-03 23:59:59', 'troisieme message plus tard', 5, 6),
+(4, '2020-06-05 23:59:59', 'ceci est un nouveau message de quelqu\'un d\'autre', 5, 7);
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `reservation`
 --
 
@@ -99,23 +123,24 @@ CREATE TABLE `utilisateur` (
   `date_creation_compte` date DEFAULT NULL,
   `note` float DEFAULT NULL,
   `statut` varchar(20) NOT NULL,
-  `mot_de_passe` varchar(255) DEFAULT NULL
+  `mot_de_passe` varchar(255) DEFAULT NULL,
+  `capital` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Déchargement des données de la table `utilisateur`
 --
 
-INSERT INTO `utilisateur` (`id_utilisateur`, `prenom`, `nom`, `sexe`, `email`, `date_creation_compte`, `note`, `statut`, `mot_de_passe`) VALUES
-(1, 'alexis', 'richy', 'm', 'alexisrichy@gmail.com', '2011-12-10', 4.5, 'ambassadeur', 'd2104a400c7f629a197f33bb33fe80c0'),
-(2, 'abc', 'abc', 'm', 'abc@abc.abc', '2020-06-04', NULL, 'Nouvel arrivant', 'd2104a400c7f629a197f33bb33fe80c0'),
-(3, 'bécu', 'Juliette', 'f', 'juliettebecu@gmail.com', '2020-06-04', NULL, 'Nouvel arrivant', 'd41d8cd98f00b204e9800998ecf8427e'),
-(4, 'proutent', 'jeanne charlotte ', 'f', 'jc@jc.fr', '2020-06-04', NULL, 'Nouvel arrivant', 'd41d8cd98f00b204e9800998ecf8427e'),
-(5, 'Marcia', 'De Noord', 'f', 'marciadenoord@gmail.com', '2020-06-04', NULL, 'Nouvel arrivant', 'e9d3233b0e482f2e96b7a64f90a04e48'),
-(6, 'Precious', 'Pelenio', 'm', 'precious.pelenio@ynov.com', '2020-06-05', NULL, 'Nouvel arrivant', 'fabd6b235e04e220538807d265b92a7b'),
-(7, 'Girl', 'Barbie', 'f', 'barbie@barbie.com', '2020-06-05', NULL, 'Nouvel arrivant', 'f632fa6f8c3d5f551c5df867588381ab'),
-(8, 'Neige', 'Blanche', 'f', 'blanche@neige.com', '2020-06-05', NULL, 'Nouvel arrivant', '900150983cd24fb0d6963f7d28e17f72'),
-(9, 'du monde', 'Roi', 'm', 'roidumonde@prout.com', '2020-06-05', NULL, 'Nouvel arrivant', 'd2104a400c7f629a197f33bb33fe80c0');
+INSERT INTO `utilisateur` (`id_utilisateur`, `prenom`, `nom`, `sexe`, `email`, `date_creation_compte`, `note`, `statut`, `mot_de_passe`, `capital`) VALUES
+(1, 'alexis', 'richy', 'm', 'alexisrichy@gmail.com', '2011-12-10', 4.5, 'ambassadeur', 'd2104a400c7f629a197f33bb33fe80c0', 0),
+(2, 'abc', 'abc', 'm', 'abc@abc.abc', '2020-06-04', NULL, 'Nouvel arrivant', 'd2104a400c7f629a197f33bb33fe80c0', 0),
+(3, 'bécu', 'Juliette', 'f', 'juliettebecu@gmail.com', '2020-06-04', NULL, 'Nouvel arrivant', 'd41d8cd98f00b204e9800998ecf8427e', 0),
+(4, 'proutent', 'jeanne charlotte ', 'f', 'jc@jc.fr', '2020-06-04', NULL, 'Nouvel arrivant', 'd41d8cd98f00b204e9800998ecf8427e', 0),
+(5, 'Marcia', 'De Noord', 'f', 'marciadenoord@gmail.com', '2020-06-04', NULL, 'Nouvel arrivant', 'e9d3233b0e482f2e96b7a64f90a04e48', 0),
+(6, 'Precious', 'Pelenio', 'm', 'precious.pelenio@ynov.com', '2020-06-05', NULL, 'Nouvel arrivant', 'fabd6b235e04e220538807d265b92a7b', 0),
+(7, 'Girl', 'Barbie', 'f', 'barbie@barbie.com', '2020-06-05', NULL, 'Nouvel arrivant', 'f632fa6f8c3d5f551c5df867588381ab', 0),
+(8, 'Neige', 'Blanche', 'f', 'blanche@neige.com', '2020-06-05', NULL, 'Nouvel arrivant', '900150983cd24fb0d6963f7d28e17f72', 0),
+(9, 'du monde', 'Roi', 'm', 'roidumonde@prout.com', '2020-06-05', NULL, 'Nouvel arrivant', 'd2104a400c7f629a197f33bb33fe80c0', 0);
 
 --
 -- Index pour les tables déchargées
@@ -127,6 +152,14 @@ INSERT INTO `utilisateur` (`id_utilisateur`, `prenom`, `nom`, `sexe`, `email`, `
 ALTER TABLE `annonce`
   ADD PRIMARY KEY (`id_annonce`),
   ADD KEY `fk_id_utilisateur` (`id_utilisateur`);
+
+--
+-- Index pour la table `message`
+--
+ALTER TABLE `message`
+  ADD PRIMARY KEY (`id_message`),
+  ADD KEY `id_destinataire` (`id_destinataire`),
+  ADD KEY `id_expediteur` (`id_expediteur`);
 
 --
 -- Index pour la table `reservation`
@@ -153,6 +186,12 @@ ALTER TABLE `annonce`
   MODIFY `id_annonce` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
+-- AUTO_INCREMENT pour la table `message`
+--
+ALTER TABLE `message`
+  MODIFY `id_message` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
 -- AUTO_INCREMENT pour la table `reservation`
 --
 ALTER TABLE `reservation`
@@ -173,6 +212,13 @@ ALTER TABLE `utilisateur`
 --
 ALTER TABLE `annonce`
   ADD CONSTRAINT `fk_id_utilisateur` FOREIGN KEY (`id_utilisateur`) REFERENCES `utilisateur` (`id_utilisateur`);
+
+--
+-- Contraintes pour la table `message`
+--
+ALTER TABLE `message`
+  ADD CONSTRAINT `message_ibfk_1` FOREIGN KEY (`id_destinataire`) REFERENCES `utilisateur` (`id_utilisateur`),
+  ADD CONSTRAINT `message_ibfk_2` FOREIGN KEY (`id_expediteur`) REFERENCES `utilisateur` (`id_utilisateur`);
 
 --
 -- Contraintes pour la table `reservation`
