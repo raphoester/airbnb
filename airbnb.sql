@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : lun. 08 juin 2020 à 14:59
+-- Généré le : lun. 08 juin 2020 à 16:32
 -- Version du serveur :  10.4.11-MariaDB
 -- Version de PHP : 7.4.4
 
@@ -34,27 +34,48 @@ CREATE TABLE `annonce` (
   `description` varchar(700) DEFAULT NULL,
   `locataires_max` int(3) NOT NULL,
   `prix` varchar(30) DEFAULT NULL,
-  `id_utilisateur` int(11) NOT NULL,
-  `image` varchar(200) DEFAULT NULL
+  `id_utilisateur` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Déchargement des données de la table `annonce`
 --
 
-INSERT INTO `annonce` (`id_annonce`, `ville`, `titre`, `description`, `locataires_max`, `prix`, `id_utilisateur`, `image`) VALUES
-(1, 'Porto', 'appartement dans le centre ville', 'vachement cosy lorem ipsum dolor', 5, '125', 4, NULL),
-(2, 'Porto', 'appart de luxe', 'la description qu\'est bien', 5, '70', 4, NULL),
-(3, 'Porto', 'appart de merde', 'description', 1, '35', 5, NULL),
-(4, 'Porto', 'palace avec piscine', 'desc', 7, '150', 3, NULL),
-(5, 'Porto', 'Grosse maison au bord de la mer', 'C\'est une grosse maison au bord de la mer et il y a même des toilettes dedans', 12, '61', 2, NULL),
-(6, 'Porto', 'Taudis dans le centre ville', 'tu vas vivre dans une poubelle jtexplik :  ^)', 1, '1', 5, NULL),
-(8, 'Porto', 'Camping car', 'Camping car sur un parking très convivial avec des touristes gentils', 1, '150', 5, NULL),
-(10, 'Porto', 'gros camping car gentil', 'camping car très affectueux sur son aimable parking ', 1, '200', 5, 'couv-différences-entre-camper-et-stationner.jpg'),
-(15, 'Porto', 'JOLI CAMPING CAR ', 'camping \r\nCAR', 2, '1', 5, 'couv-différences-entre-camper-et-stationner.jpg'),
-(17, 'Porto', 'Camping car bis ', 'camping car bis ', 12, '9', 5, ''),
-(18, 'Porto', 'Caravane', 'caravane de luxe', 18, '50', 5, ''),
-(19, 'Porto', 'logement social de pauvre', 'nid à sdf et a crackés du cul', 16, '6', 5, 'img/téléchargement.jpg');
+INSERT INTO `annonce` (`id_annonce`, `ville`, `titre`, `description`, `locataires_max`, `prix`, `id_utilisateur`) VALUES
+(1, 'Porto', 'appartement dans le centre ville', 'vachement cosy lorem ipsum dolor', 5, '125', 4),
+(2, 'Porto', 'appart de luxe', 'la description qu\'est bien', 5, '70', 4),
+(3, 'Porto', 'appart de merde', 'description', 1, '35', 5),
+(4, 'Porto', 'palace avec piscine', 'desc', 7, '150', 3),
+(5, 'Porto', 'Grosse maison au bord de la mer', 'C\'est une grosse maison au bord de la mer et il y a même des toilettes dedans', 12, '61', 2),
+(6, 'Porto', 'Taudis dans le centre ville', 'tu vas vivre dans une poubelle jtexplik :  ^)', 1, '1', 5),
+(8, 'Porto', 'Camping car', 'Camping car sur un parking très convivial avec des touristes gentils', 1, '150', 5),
+(10, 'Porto', 'gros camping car gentil', 'camping car très affectueux sur son aimable parking ', 1, '200', 5),
+(15, 'Porto', 'JOLI CAMPING CAR ', 'camping \r\nCAR', 2, '1', 5),
+(17, 'Porto', 'Camping car bis ', 'camping car bis ', 12, '9', 5),
+(18, 'Porto', 'Caravane', 'caravane de luxe', 18, '50', 5),
+(19, 'Porto', 'logement social de pauvre', 'nid à sdf et a crackés du cul', 16, '6', 5);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `image`
+--
+
+CREATE TABLE `image` (
+  `id_image` int(9) NOT NULL,
+  `nom` varchar(50) NOT NULL,
+  `id_annonce` int(9) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Déchargement des données de la table `image`
+--
+
+INSERT INTO `image` (`id_image`, `nom`, `id_annonce`) VALUES
+(1, 'img/pika.jpg', 4),
+(2, 'img/pika.jpg', 1),
+(3, 'img/pika.jpg', 3),
+(4, 'img/l\'ovni.jpg', 3);
 
 -- --------------------------------------------------------
 
@@ -163,6 +184,13 @@ ALTER TABLE `annonce`
   ADD KEY `fk_id_utilisateur` (`id_utilisateur`);
 
 --
+-- Index pour la table `image`
+--
+ALTER TABLE `image`
+  ADD PRIMARY KEY (`id_image`),
+  ADD KEY `id_annonce` (`id_annonce`);
+
+--
 -- Index pour la table `message`
 --
 ALTER TABLE `message`
@@ -195,6 +223,12 @@ ALTER TABLE `annonce`
   MODIFY `id_annonce` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
+-- AUTO_INCREMENT pour la table `image`
+--
+ALTER TABLE `image`
+  MODIFY `id_image` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
 -- AUTO_INCREMENT pour la table `message`
 --
 ALTER TABLE `message`
@@ -221,6 +255,12 @@ ALTER TABLE `utilisateur`
 --
 ALTER TABLE `annonce`
   ADD CONSTRAINT `fk_id_utilisateur` FOREIGN KEY (`id_utilisateur`) REFERENCES `utilisateur` (`id_utilisateur`);
+
+--
+-- Contraintes pour la table `image`
+--
+ALTER TABLE `image`
+  ADD CONSTRAINT `image_ibfk_1` FOREIGN KEY (`id_annonce`) REFERENCES `annonce` (`id_annonce`);
 
 --
 -- Contraintes pour la table `message`
