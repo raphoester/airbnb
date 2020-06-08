@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : Dim 07 juin 2020 à 20:14
+-- Généré le : lun. 08 juin 2020 à 14:59
 -- Version du serveur :  10.4.11-MariaDB
 -- Version de PHP : 7.4.4
 
@@ -51,9 +51,7 @@ INSERT INTO `annonce` (`id_annonce`, `ville`, `titre`, `description`, `locataire
 (6, 'Porto', 'Taudis dans le centre ville', 'tu vas vivre dans une poubelle jtexplik :  ^)', 1, '1', 5, NULL),
 (8, 'Porto', 'Camping car', 'Camping car sur un parking très convivial avec des touristes gentils', 1, '150', 5, NULL),
 (10, 'Porto', 'gros camping car gentil', 'camping car très affectueux sur son aimable parking ', 1, '200', 5, 'couv-différences-entre-camper-et-stationner.jpg'),
-(11, 'Porto', 'JOLI CAMPING CAR ', 'camping \r\nCAR', 2, '1', 5, 'couv-différences-entre-camper-et-stationner.jpg'),
 (15, 'Porto', 'JOLI CAMPING CAR ', 'camping \r\nCAR', 2, '1', 5, 'couv-différences-entre-camper-et-stationner.jpg'),
-(16, 'Porto', 'Camping car bis ', 'camping car bis ', 12, '9', 5, ''),
 (17, 'Porto', 'Camping car bis ', 'camping car bis ', 12, '9', 5, ''),
 (18, 'Porto', 'Caravane', 'caravane de luxe', 18, '50', 5, ''),
 (19, 'Porto', 'logement social de pauvre', 'nid à sdf et a crackés du cul', 16, '6', 5, 'img/téléchargement.jpg');
@@ -80,7 +78,18 @@ INSERT INTO `message` (`id_message`, `date_envoi`, `contenu`, `id_destinataire`,
 (1, '2020-01-01 23:59:59', 'salut ceci est mon premier message', 6, 5),
 (2, '2020-01-02 23:59:59', 'deuxieme message plus tard', 6, 5),
 (3, '2020-01-03 23:59:59', 'troisieme message plus tard', 5, 6),
-(4, '2020-06-05 23:59:59', 'ceci est un nouveau message de quelqu\'un d\'autre', 5, 7);
+(4, '2020-06-05 23:59:59', 'ceci est un nouveau message de quelqu\'un d\'autre', 5, 7),
+(5, '2020-06-08 23:59:59', 'petit message d\'amour <3 ', 7, 5),
+(6, '2021-06-08 23:59:59', 'salut mon pote !', 5, 9),
+(7, '2025-06-08 23:59:59', 'salut super message', 5, 1),
+(8, '2020-01-04 23:59:59', 'quatrième message !', 5, 6),
+(9, '2020-01-05 23:59:59', 'cinquième message ', 6, 5),
+(10, '2020-01-06 23:59:59', 'sixième message ', 6, 5),
+(11, '2020-06-08 11:36:34', 'salut mon pote!', 6, 5),
+(29, '2020-06-08 11:44:56', 'bonjour', 6, 5),
+(30, '2020-06-08 14:42:27', 'pétasse', 6, 5),
+(31, '2020-06-08 14:54:23', 'GROS CACA', 6, 5),
+(32, '2020-06-08 14:54:26', 'GROS CACA', 6, 5);
 
 -- --------------------------------------------------------
 
@@ -189,7 +198,7 @@ ALTER TABLE `annonce`
 -- AUTO_INCREMENT pour la table `message`
 --
 ALTER TABLE `message`
-  MODIFY `id_message` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_message` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT pour la table `reservation`
