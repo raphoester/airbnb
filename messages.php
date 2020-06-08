@@ -44,7 +44,6 @@ $max_index = max(array_keys($liste_correspondants));
             {
                 if (!empty($liste_correspondants[$i]) && $liste_correspondants[$i] == True)
                 {
-                    
                     $correspondant = $pdo->query("select * from utilisateur where id_utilisateur =". $i.";");
                     $correspondant = $correspondant->fetchAll();
 
