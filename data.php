@@ -1,6 +1,13 @@
 <?php 
     session_start();
     $pdo = new PDO("mysql:host=localhost; dbname=airbnb", "root", "" , array(PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION));
+    $mysqli = new mysqli("localhost", "root", "", "airbnb");
+
+    if (mysqli_connect_errno()) {
+        printf("Connect failed: %s\n", mysqli_connect_error());
+        exit();
+    }
+
     if (!empty($_SESSION["id"])){
         $sql = "select * from utilisateur where id_utilisateur =". $_SESSION['id'].";";
         $pdostatementDU = $pdo->query($sql);
@@ -19,6 +26,10 @@
         $donnees_utilisateur["statut"] = str_replace('"', "\"", $donnees_utilisateur["statut"]);
     
     }
+
+    
+
+
     if (!empty($_GET["dec"])){
 
         session_unset();
