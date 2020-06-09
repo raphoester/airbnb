@@ -21,14 +21,18 @@ else if(!empty($_POST))
 
     var_dump($_FILES);
 
-    $filename = $_FILES["img"]["name"];
-    $tempname = $_FILES["img"]["tmp_name"];
-    $folder = "img/" .$filename;
-    move_uploaded_file($tempname, $folder);
+    $nom = $_FILES["img"]["name"];
+    $temp = $_FILES["img"]["tmp_name"];
+    $dossier = "img/" .$donnees_utilisateur['id_utilisateur'].$nom.time();
+    move_uploaded_file($temp, $dossier);
 
-    $sql = "INSERT INTO annonce (titre, description, ville, prix, locataires_max, id_utilisateur, image) VALUES('".$titre."','".$description."','".$ville."',".$_POST['prix'].",".$_POST['places'].",".$donnees_utilisateur["id_utilisateur"].",'".$folder."');";
-    echo($sql);
-    $result = $pdo->exec($sql);
+    $sql = "INSERT INTO annonce (titre, description, ville, prix, locataires_max, id_utilisateur) VALUES('".$titre."','".$description."','".$ville."',".$_POST['prix'].",".$_POST['places'].",".$donnees_utilisateur["id_utilisateur"].");";
+    $pdo->exec($sql);
+    $sql = "select id_annonce from annonce where id_utilisateur =".$donnees_utilisateur['id_utilisateur']." and titre ='".$titre."';)";
+    $annonce = $pdo->query($sql)->fetch();
+    var_dump($annonce);
+    $sql ="insert into image(nom, id_annonce) values ('".$dossier."',".$annonce['id_annonce'].");";
+    $pdo->exec($sql);
 }
 
 
