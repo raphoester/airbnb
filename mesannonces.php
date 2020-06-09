@@ -17,6 +17,7 @@ if (empty($_SESSION["login"]) || $_SESSION["login"] != 1)
 
 if (!empty($_GET["idsuppr"]))
 {
+    $pdo->exec("delete from image where id_annonce = ".$_GET["idsuppr"].";");
     $pdo->exec("delete from annonce where id_annonce = ".$_GET["idsuppr"].";");
 }
 

@@ -18,22 +18,37 @@ else if(!empty($_POST))
     $ville = str_replace("'", "\'", $_POST['ville']);
     $ville = str_replace('"', "\"", $ville);
 
-
-    var_dump($_FILES);
-
-    $nom = $_FILES["img"]["name"];
-    $temp = $_FILES["img"]["tmp_name"];
-    $dossier = "img/" .$donnees_utilisateur['id_utilisateur'].$nom.time();
-    move_uploaded_file($temp, $dossier);
-
     $sql = "INSERT INTO annonce (titre, description, ville, prix, locataires_max, id_utilisateur) VALUES('".$titre."','".$description."','".$ville."',".$_POST['prix'].",".$_POST['places'].",".$donnees_utilisateur["id_utilisateur"].");";
     $pdo->exec($sql);
     $sql = "select id_annonce from annonce where id_utilisateur =".$donnees_utilisateur['id_utilisateur']." and titre ='".$titre."';)";
     $annonce = $pdo->query($sql)->fetch();
-    var_dump($annonce);
-    $sql ="insert into image(nom, id_annonce) values ('".$dossier."',".$annonce['id_annonce'].");";
-    $pdo->exec($sql);
+
+
+
+
+    $erreurs=array();
+    $extension=array("jpeg","jpg","png","gif");
+    for ($i = 0; $i<count($_FILES["img"]["tmp_name"]) ; $i++)
+    {
+        $file_name = "img/annonces/".time().$donnees_utilisateur['id_utilisateur'].$_FILES["img"]["name"][$i];
+        $file_tmp=$_FILES["img"]["tmp_name"][$i];
+        $ext=pathinfo($file_name,PATHINFO_EXTENSION);
+        
+        if(in_array($ext,$extension)) 
+        {
+            move_uploaded_file($_FILES["img"]["tmp_name"][$i],$file_name);            
+        }
+        else 
+        {
+            array_push($erreurs,"$file_name");
+        }
+        $sql ="insert into image(nom, id_annonce) values ('".mysqli_real_escape_string($mysqli, $file_name)."',".$annonce['id_annonce'].");";
+        $pdo->exec($sql);
+    }
+
 }
+
+
 
 
 ?>
@@ -70,7 +85,7 @@ else if(!empty($_POST))
 
         <div>
             <label for="img">Images</label>
-            <input type="file" id="img" name="img">
+            <input type="file" id="img" name="img[]" multiple>
         </div>
 
         <div class="field">

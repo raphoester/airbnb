@@ -53,7 +53,8 @@ if(!empty($_GET))
         $image = ($pdo -> query($sql));      
         $image = $image -> fetchAll();
         $afficher = True;
-        for($j=0;$j<count($conflits);$j++){
+        for($j=0;$j<count($conflits);$j++)
+        {
             if($tout[$i]["id_annonce"] == $conflits[$j]["id_annonce"]){
                 $afficher = False;
             }
