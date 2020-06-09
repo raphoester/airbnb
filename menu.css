@@ -1,6 +1,6 @@
 .nav-link {
     color: black;
-    font-size: 15px;
+    font-size: 17px;
     font-weight: 600;
 }
 
@@ -14,3 +14,8 @@ nav{
     top: 20%; 
     left: 5%; 
 }
+
+.shadow-sm.p-3.mb-5.bg-white.rounded{
+    height: 100px;
+}
+

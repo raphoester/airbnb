@@ -1,0 +1,30 @@
+.logo{
+    margin-top: 2%;
+    text-align: center;
+}
+
+.content{
+    text-align: center;
+}
+
+.login{
+    margin: 0 auto;
+    margin-top: 3%;
+    width: 500px;
+}
+
+.test{
+    margin-left: 18%;
+}
+
+.sign_up{
+    margin: 0 auto;
+    margin-top: 3%;
+    width: 300px;
+}
+
+.sign.in.icon > .ui.blue.submit.button{
+    width: 100px;
+}
+
+

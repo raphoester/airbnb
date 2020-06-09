@@ -1,4 +1,98 @@
-<?php include("inc/header.php");?>
+<?php include("inc/data.php");?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Airbnb</title>
+    
+    <script
+      src="https://kit.fontawesome.com/c96b06a653.js"
+      crossorigin="anonymous"
+    ></script>
+
+    <link rel="stylesheet" href="css/login.css">
+    
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
+    
+    <script src="semantic/dist/semantic.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
+</head>
+<body>
+<header>
+    <div class="logo">
+        <a href="index.php">
+            <img src="img/logo_airbnb.jpg" alt="logo" href="index.php">
+        </a>
+    </div>
+</header>
+
+<div class="sign_up">
+    <div class="ui placeholder segment">
+            <div class="column">
+                <h3 class="ui dividing header">Se créer un compte</h3>
+                <form action="" method="POST">
+                    <div class="ui form">
+                        <div class="field">
+                            <label>Nom</label>
+                            <div class="ui left icon input">
+                                <input type="text" name="nom" id="nom" required>
+                                <i class="user icon"></i>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label>Prenom</label>
+                            <div class="ui left icon input">
+                                <input type="text" name="prenom" id="prenom" required>
+                                <i class="user icon"></i>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label>Sexe</label>
+                            <div class="ui left icon input">
+                                <select class="test" id="sexe" name="sexe">
+                                    <option value="h" selected>Homme</option> 
+                                    <option value="f">Femme</option>
+                                </select>
+                                <i class="address card icon"></i>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label>Email</label>
+                            <div class="ui left icon input">
+                                <input type="email" name="email" id="email" required>
+                                <i class="at icon"></i>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label>Mot de passe</label>
+                            <div class="ui left icon input">
+                                <input type="password" name="mdp" required>
+                                <i class="lock icon"></i>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label>Confirmation du mot de passe</label>
+                            <div class="ui left icon input">
+                                <input type="password" name="mdp_confirme" required>
+                                <i class="lock icon"></i>
+                            </div>
+                        </div>
+                        <input class="ui blue submit button" type="submit" value="Créer mon compte" name="valider" id="validation"></input>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
 
 
 <?php
@@ -42,53 +136,3 @@ if (!empty($_POST))
     }
 }
 ?>
-
-
-
-<h1>Créer un compte</h1>
-<form action="" method="POST">
-<div>
-<label for="nom">Nom</label>
-<input type="text" name="nom" id="nom" required>
-</div>
-
-<div>
-<label for="prenom">Prénom</label>
-<input type="text" name="prenom" id="prenom" required>
-</div>
-
-<div>
-<label for="sexe">Sexe</label>
-<select id="sexe" name="sexe">
-  <option value="h" selected>Homme</option> 
-  <option value="f">Femme</option>
-</select>
-</div>
-
-<div>
-<label for="email">Adresse mail</label>
-<input type="email" name="email" id="email" required>
-</div>
-
-<div>
-<label for ="mdp">Choisissez un mot de passe</label>
-<input type="password" name="mdp" required>
-</div>
-
-<div>
-<label for ="mdp">Confirmation du mot de passe</label>
-<input type="password" name="mdp_confirme" required>
-</div>
-
-<div>
-<label for="validation"></label>
-<input type="submit" value="Créer mon compte" name="valider" id="validation">
-</div>
-
-</form>
-
-<div>
-<p>Vous préférez <a href="connexion.php">vous connecter</a> ? </p>
-</div>
-
-<?php include("inc/footer.php");?>

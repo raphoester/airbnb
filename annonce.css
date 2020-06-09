@@ -1,0 +1,29 @@
+.info{
+    margin: 10px 0px;
+}
+
+.pdp{
+    display: inline;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+.ui.grey.inverted.segment {
+    font-size: 1px;
+    width: 700px;
+    margin: 20px 0px;
+}
+
+.ui.right.floated.button{
+    position: absolute;
+    right: 100px;
+}
+
+.ui.clearing.segment{
+    width: 1100px;
+}
+
+.carousel.slide{
+    
+}

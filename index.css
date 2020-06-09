@@ -1,19 +1,55 @@
 .type{
-    left: 5%;
+    left: 20%;
     position: relative;
-    padding-top: 5%;
+    padding-top: 3%;
 }
 
 .field{
-    max-width:300px;
+    max-width: 400px;
 }
 
-.btn_ajt{
-    padding-top: 1.2%;
+.three.fields{
+    max-width: 1700px;
 }
+
 
 .btn.btn-light{
     border: 1px solid black;
     border-radius: 8px;
-    background: rgba(238, 49, 175, 0.637);
+}
+
+.ui.unstackable.items{
+    margin-left: 2%;
+}
+
+.resultat{
+    margin-left: 2%;
+    max-width: 1000px;
+}
+
+.content{
+    position: relative;
+    left: 1%;
+}
+
+.big-image{
+    border-radius: 10px;
+}
+
+.container{
+    padding-top: 3%;
+}
+
+.carousel.slide{
+    max-width: 1000px;
+}
+
+.d-block.w-100{
+    max-height: 600px;
+}
+
+.ui.grey.inverted.segment {
+    font-size: 1px;
+    width: 800px;
+    margin: 50px 0px;
 }

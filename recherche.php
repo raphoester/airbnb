@@ -11,10 +11,12 @@ if(!empty($_GET))
     $dureeSejour = $intervale->format('%a');
     ?>
 
-
-    <h2>Resultats de la recherche</h2>
-    <h5>Tarifs pour <?php echo $_GET["places"]?> personnes pendant <?php echo $dureeSejour?> jours.</h5>
-    <p><a href="index.php">Rechercher autre chose ?</a></p>
+    <div class = "resultat">
+        <h2>Resultats de la recherche</h2>
+        <h5>Tarifs pour <?php echo $_GET["places"]?> personnes pendant <?php echo $dureeSejour?> jours.</h5>
+        <p><a href="index.php">Rechercher autre chose ?</a></p>
+    </div>
+        
     <?php 
 
     $ville = str_replace("'", "\'", $_GET['ville']);
@@ -35,7 +37,6 @@ if(!empty($_GET))
 
     $reservationsConflit = $pdo->query("SELECT * from reservation where (date_debut >= "."'".$_GET['dA']."' AND date_debut <= "."'".$_GET['dD']."') OR (date_fin >= "."'".$_GET['dA']."' AND date_fin <= "."'".$_GET['dD']."');");
     
-    
     $tout = $annoncesCorrespondantes->fetchAll();
     $conflits = $reservationsConflit->fetchAll();
 
@@ -48,6 +49,9 @@ if(!empty($_GET))
     $i=0;
     for($i=0; $i<count($tout); $i++)
     {
+        $sql = "SELECT * FROM image WHERE id_annonce = ". $tout[$i]['id_annonce'] . ";" ;
+        $image = ($pdo -> query($sql));      
+        $image = $image -> fetchAll();
         $afficher = True;
         for($j=0;$j<count($conflits);$j++){
             if($tout[$i]["id_annonce"] == $conflits[$j]["id_annonce"]){
@@ -59,11 +63,27 @@ if(!empty($_GET))
 
         if ($afficher){?>
 
-            <div>
-            <h3><a href="<?php echo 'annonce.php?id='.$tout[$i]["id_annonce"]?>"><?php echo $tout[$i]["titre"]?></a></h3>
-                <img width="300px" height="200px" src="<?php echo $tout[$i]['image']?>">
-                <h4><?php echo $prixSejour;?> €</h4>
+
+
+            <div class="ui unstackable items">
+                <div class="item">
+                    <div class="big-image">
+                    <img src="<?php echo $image[0]['nom']?>" height="200px" width="300px">
+                    </div>
+                    <div class="content">
+                    <a class="header" href="<?php echo 'annonce.php?id='.$tout[$i]["id_annonce"]?>"><?php echo $tout[$i]["titre"]?></a>
+                    <div class="description">
+                        <p><?php echo $tout[$i]["description"]?></p>
+                    </div>
+                    <div class="extra">
+                        <h5><?php echo $prixSejour;?> € / nuit</h5>
+                    </div>
+                    </div>
+                </div>
+                <div class="ui grey inverted segment"></div>
             </div>
+
+
             
         <?php
         }
@@ -79,7 +99,7 @@ if(!empty($_GET))
         }
 
     }  
+    
 } 
 ?>
 
-<?php include("inc/footer.php");?>
