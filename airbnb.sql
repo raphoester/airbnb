@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : lun. 08 juin 2020 à 16:32
+-- Généré le : mar. 09 juin 2020 à 16:57
 -- Version du serveur :  10.4.11-MariaDB
 -- Version de PHP : 7.4.4
 
@@ -58,6 +58,32 @@ INSERT INTO `annonce` (`id_annonce`, `ville`, `titre`, `description`, `locataire
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `blocage`
+--
+
+CREATE TABLE `blocage` (
+  `id_bloqueur` int(9) NOT NULL,
+  `id_bloque` int(9) NOT NULL,
+  `vraifaux` tinyint(1) NOT NULL DEFAULT 0,
+  `id_blocage` int(9) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Déchargement des données de la table `blocage`
+--
+
+INSERT INTO `blocage` (`id_bloqueur`, `id_bloque`, `vraifaux`, `id_blocage`) VALUES
+(5, 6, 0, 1),
+(5, 6, 0, 5),
+(5, 6, 0, 6),
+(5, 6, 0, 7),
+(5, 9, 0, 8),
+(5, 6, 0, 9),
+(5, 6, 0, 10);
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `image`
 --
 
@@ -97,20 +123,16 @@ CREATE TABLE `message` (
 
 INSERT INTO `message` (`id_message`, `date_envoi`, `contenu`, `id_destinataire`, `id_expediteur`) VALUES
 (1, '2020-01-01 23:59:59', 'salut ceci est mon premier message', 6, 5),
-(2, '2020-01-02 23:59:59', 'deuxieme message plus tard', 6, 5),
-(3, '2020-01-03 23:59:59', 'troisieme message plus tard', 5, 6),
 (4, '2020-06-05 23:59:59', 'ceci est un nouveau message de quelqu\'un d\'autre', 5, 7),
 (5, '2020-06-08 23:59:59', 'petit message d\'amour <3 ', 7, 5),
 (6, '2021-06-08 23:59:59', 'salut mon pote !', 5, 9),
-(7, '2025-06-08 23:59:59', 'salut super message', 5, 1),
 (8, '2020-01-04 23:59:59', 'quatrième message !', 5, 6),
-(9, '2020-01-05 23:59:59', 'cinquième message ', 6, 5),
-(10, '2020-01-06 23:59:59', 'sixième message ', 6, 5),
-(11, '2020-06-08 11:36:34', 'salut mon pote!', 6, 5),
 (29, '2020-06-08 11:44:56', 'bonjour', 6, 5),
-(30, '2020-06-08 14:42:27', 'pétasse', 6, 5),
-(31, '2020-06-08 14:54:23', 'GROS CACA', 6, 5),
-(32, '2020-06-08 14:54:26', 'GROS CACA', 6, 5);
+(35, '2020-06-09 08:53:26', 'bangz', 9, 5),
+(39, '2020-06-09 14:36:19', 'BOUBOUBOUBOUBOUUUUU', 7, 5),
+(42, '2020-06-09 14:57:32', 'Bonjour abc !', 2, 5),
+(43, '2020-06-09 15:06:38', 'salut', 6, 5),
+(44, '2020-06-09 15:11:17', 'j\'aime les vach\"es', 6, 5);
 
 -- --------------------------------------------------------
 
@@ -141,6 +163,41 @@ INSERT INTO `reservation` (`id_annonce`, `id_utilisateur`, `id_reservation`, `da
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `signalement`
+--
+
+CREATE TABLE `signalement` (
+  `id_signalement` int(9) NOT NULL,
+  `id_message_signale` int(9) NOT NULL,
+  `description` varchar(1000) DEFAULT NULL,
+  `motif` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Déchargement des données de la table `signalement`
+--
+
+INSERT INTO `signalement` (`id_signalement`, `id_message_signale`, `description`, `motif`) VALUES
+(1, 4, 'description signalement ', 'insulte'),
+(3, 8, 'c méchon ouin ouin', 'insulte'),
+(4, 8, 'c méchon ouin ouin', 'insulte'),
+(5, 8, 'c méchon ouin ouin', 'insulte'),
+(6, 8, 'c méchon ouin ouin', 'insulte'),
+(7, 8, 'c méchon ouin ouin', 'insulte'),
+(8, 8, 'c méchon ouin ouin', 'insulte'),
+(9, 8, 'c méchon ouin ouin', 'insulte'),
+(10, 8, 'c méchon ouin ouin', 'insulte'),
+(11, 8, '', 'insulte'),
+(12, 8, '', 'insulte'),
+(13, 8, '', 'insulte'),
+(14, 8, '', 'insulte'),
+(15, 8, 'caca', 'insulte'),
+(16, 6, 'il é pa gentil ', 'insulte'),
+(17, 8, 'ouin ouin il é pa jonti', 'insulte');
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `utilisateur`
 --
 
@@ -154,23 +211,24 @@ CREATE TABLE `utilisateur` (
   `note` float DEFAULT NULL,
   `statut` varchar(20) NOT NULL,
   `mot_de_passe` varchar(255) DEFAULT NULL,
-  `capital` int(11) NOT NULL
+  `capital` int(11) NOT NULL,
+  `image_profil` varchar(50) NOT NULL DEFAULT 'img/site/profil_defaut.jpg'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Déchargement des données de la table `utilisateur`
 --
 
-INSERT INTO `utilisateur` (`id_utilisateur`, `prenom`, `nom`, `sexe`, `email`, `date_creation_compte`, `note`, `statut`, `mot_de_passe`, `capital`) VALUES
-(1, 'alexis', 'richy', 'm', 'alexisrichy@gmail.com', '2011-12-10', 4.5, 'ambassadeur', 'd2104a400c7f629a197f33bb33fe80c0', 0),
-(2, 'abc', 'abc', 'm', 'abc@abc.abc', '2020-06-04', NULL, 'Nouvel arrivant', 'd2104a400c7f629a197f33bb33fe80c0', 0),
-(3, 'bécu', 'Juliette', 'f', 'juliettebecu@gmail.com', '2020-06-04', NULL, 'Nouvel arrivant', 'd41d8cd98f00b204e9800998ecf8427e', 0),
-(4, 'proutent', 'jeanne charlotte ', 'f', 'jc@jc.fr', '2020-06-04', NULL, 'Nouvel arrivant', 'd41d8cd98f00b204e9800998ecf8427e', 0),
-(5, 'Marcia', 'De Noord', 'f', 'marciadenoord@gmail.com', '2020-06-04', NULL, 'Nouvel arrivant', 'e9d3233b0e482f2e96b7a64f90a04e48', 0),
-(6, 'Precious', 'Pelenio', 'm', 'precious.pelenio@ynov.com', '2020-06-05', NULL, 'Nouvel arrivant', 'fabd6b235e04e220538807d265b92a7b', 0),
-(7, 'Girl', 'Barbie', 'f', 'barbie@barbie.com', '2020-06-05', NULL, 'Nouvel arrivant', 'f632fa6f8c3d5f551c5df867588381ab', 0),
-(8, 'Neige', 'Blanche', 'f', 'blanche@neige.com', '2020-06-05', NULL, 'Nouvel arrivant', '900150983cd24fb0d6963f7d28e17f72', 0),
-(9, 'du monde', 'Roi', 'm', 'roidumonde@prout.com', '2020-06-05', NULL, 'Nouvel arrivant', 'd2104a400c7f629a197f33bb33fe80c0', 0);
+INSERT INTO `utilisateur` (`id_utilisateur`, `prenom`, `nom`, `sexe`, `email`, `date_creation_compte`, `note`, `statut`, `mot_de_passe`, `capital`, `image_profil`) VALUES
+(1, 'alexis', 'richy', 'm', 'alexisrichy@gmail.com', '2011-12-10', 4.5, 'ambassadeur', 'd2104a400c7f629a197f33bb33fe80c0', 0, 'img/site/profil_defaut.jpg'),
+(2, 'abc', 'abc', 'm', 'abc@abc.abc', '2020-06-04', NULL, 'Nouvel arrivant', 'd2104a400c7f629a197f33bb33fe80c0', 0, 'img/site/profil_defaut.jpg'),
+(3, 'bécu', 'Juliette', 'f', 'juliettebecu@gmail.com', '2020-06-04', NULL, 'Nouvel arrivant', 'd41d8cd98f00b204e9800998ecf8427e', 0, 'img/site/profil_defaut.jpg'),
+(4, 'proutent', 'jeanne charlotte ', 'f', 'jc@jc.fr', '2020-06-04', NULL, 'Nouvel arrivant', 'd41d8cd98f00b204e9800998ecf8427e', 0, 'img/site/profil_defaut.jpg'),
+(5, 'Marcia', 'De Noord', 'f', 'marciadenoord@gmail.com', '2020-06-04', NULL, 'Nouvel arrivant', 'e9d3233b0e482f2e96b7a64f90a04e48', 0, 'img/site/profil_defaut.jpg'),
+(6, 'Precious', 'Pelenio', 'm', 'precious.pelenio@ynov.com', '2020-06-05', NULL, 'Nouvel arrivant', 'fabd6b235e04e220538807d265b92a7b', 0, 'img/site/profil_defaut.jpg'),
+(7, 'Girl', 'Barbie', 'f', 'barbie@barbie.com', '2020-06-05', NULL, 'Nouvel arrivant', 'f632fa6f8c3d5f551c5df867588381ab', 0, 'img/site/profil_defaut.jpg'),
+(8, 'Neige', 'Blanche', 'f', 'blanche@neige.com', '2020-06-05', NULL, 'Nouvel arrivant', '900150983cd24fb0d6963f7d28e17f72', 0, 'img/site/profil_defaut.jpg'),
+(9, 'du monde', 'Roi', 'm', 'roidumonde@prout.com', '2020-06-05', NULL, 'Nouvel arrivant', 'd2104a400c7f629a197f33bb33fe80c0', 0, 'img/site/profil_defaut.jpg');
 
 --
 -- Index pour les tables déchargées
@@ -182,6 +240,14 @@ INSERT INTO `utilisateur` (`id_utilisateur`, `prenom`, `nom`, `sexe`, `email`, `
 ALTER TABLE `annonce`
   ADD PRIMARY KEY (`id_annonce`),
   ADD KEY `fk_id_utilisateur` (`id_utilisateur`);
+
+--
+-- Index pour la table `blocage`
+--
+ALTER TABLE `blocage`
+  ADD PRIMARY KEY (`id_blocage`),
+  ADD KEY `id_bloqueur` (`id_bloqueur`),
+  ADD KEY `id_bloque` (`id_bloque`);
 
 --
 -- Index pour la table `image`
@@ -207,6 +273,13 @@ ALTER TABLE `reservation`
   ADD KEY `fk_reservation_annonce` (`id_annonce`);
 
 --
+-- Index pour la table `signalement`
+--
+ALTER TABLE `signalement`
+  ADD PRIMARY KEY (`id_signalement`),
+  ADD KEY `id_message_signale` (`id_message_signale`);
+
+--
 -- Index pour la table `utilisateur`
 --
 ALTER TABLE `utilisateur`
@@ -223,6 +296,12 @@ ALTER TABLE `annonce`
   MODIFY `id_annonce` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
+-- AUTO_INCREMENT pour la table `blocage`
+--
+ALTER TABLE `blocage`
+  MODIFY `id_blocage` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
 -- AUTO_INCREMENT pour la table `image`
 --
 ALTER TABLE `image`
@@ -232,13 +311,19 @@ ALTER TABLE `image`
 -- AUTO_INCREMENT pour la table `message`
 --
 ALTER TABLE `message`
-  MODIFY `id_message` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id_message` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 
 --
 -- AUTO_INCREMENT pour la table `reservation`
 --
 ALTER TABLE `reservation`
   MODIFY `id_reservation` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT pour la table `signalement`
+--
+ALTER TABLE `signalement`
+  MODIFY `id_signalement` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT pour la table `utilisateur`
@@ -255,6 +340,13 @@ ALTER TABLE `utilisateur`
 --
 ALTER TABLE `annonce`
   ADD CONSTRAINT `fk_id_utilisateur` FOREIGN KEY (`id_utilisateur`) REFERENCES `utilisateur` (`id_utilisateur`);
+
+--
+-- Contraintes pour la table `blocage`
+--
+ALTER TABLE `blocage`
+  ADD CONSTRAINT `blocage_ibfk_1` FOREIGN KEY (`id_bloqueur`) REFERENCES `utilisateur` (`id_utilisateur`),
+  ADD CONSTRAINT `blocage_ibfk_2` FOREIGN KEY (`id_bloque`) REFERENCES `utilisateur` (`id_utilisateur`);
 
 --
 -- Contraintes pour la table `image`
@@ -275,6 +367,12 @@ ALTER TABLE `message`
 ALTER TABLE `reservation`
   ADD CONSTRAINT `fk_reservation_annonce` FOREIGN KEY (`id_annonce`) REFERENCES `annonce` (`id_annonce`),
   ADD CONSTRAINT `fk_reservation_utilisateur` FOREIGN KEY (`id_utilisateur`) REFERENCES `utilisateur` (`id_utilisateur`);
+
+--
+-- Contraintes pour la table `signalement`
+--
+ALTER TABLE `signalement`
+  ADD CONSTRAINT `signalement_ibfk_1` FOREIGN KEY (`id_message_signale`) REFERENCES `message` (`id_message`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
