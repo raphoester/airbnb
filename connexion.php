@@ -58,16 +58,16 @@
                         </div>
                         <div class="ui left icon input">
                         <i class="sign in icon"></i>
-                            <input class="ui blue submit button" type="submit" value="Login">
+                            <input class="ui blue submit button" type="submit" value="Valider">
                         </div>  
                     </div>
                 </form>
             </div>
             <div class="middle aligned column">
-                <h3 class="ui dividing header">S'inscrire</h3>
+                <h3 class="ui dividing header">Créer un compte</h3>
                 <a class="ui big button" href="creercompte.php">
                     <i class="signup icon"></i>
-                    Sign up
+                    S'inscrire
                 </a>
             </div>
         </div>

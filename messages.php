@@ -6,6 +6,14 @@ if (empty($_SESSION["login"]) || $_SESSION["login"] != 1)
     header("Location: connexion.php");
     exit();   
 }
+
+if (!empty($_POST) && !empty($_POST['bloque']) && $_POST['bloque'] == 'on')
+{
+    $sql = "insert into blocage (id_bloque,id_bloqueur, vraifaux) values(".$_POST['idbloque'].", ".$donnees_utilisateur['id_utilisateur'].", True);";
+    $pdo->exec($sql);  
+}
+
+
 $sql = "select * from message where id_expediteur = ".$donnees_utilisateur['id_utilisateur']." order by date_envoi desc;";
 $envois = $pdo->query($sql);
 $messages_envoyes = $envois->fetchAll();

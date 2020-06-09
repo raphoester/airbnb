@@ -113,8 +113,9 @@ else
 
 <div class="ui clearing segment">
     <div>
-        <h4 class="pdp">Propriétaire : <a href="membre.php?id=<?php echo $loueur["id_utilisateur"]?>"><?php echo $loueur['prenom']?></h4>
-        <img class="pdp" src="img/pdp.jpg"></a>
+        <h4 class="pdp">Propriétaire : <a href="membre.php?id=<?php echo $loueur["id_utilisateur"]?>"><?php echo $loueur['prenom']?></h4><br>
+        <a href="conversation.php?id=<?php echo $loueur['id_utilisateur'];?>" class = "ui button">Envoyer un message</a>
+
         <h4>Nombre maximum d'occupants : <?php echo $annonce["locataires_max"];?></h4>
         <h4>Prix par personne et par nuitée : <?php echo $annonce["prix"];?> €</h4>
     </div>

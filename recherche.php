@@ -76,7 +76,7 @@ if(!empty($_GET))
                         <p><?php echo $tout[$i]["description"]?></p>
                     </div>
                     <div class="extra">
-                        <h5><?php echo $prixSejour;?> € / nuit</h5>
+                        <h5><?php echo $prixSejour;?> € </h5>
                     </div>
                     </div>
                 </div>
@@ -102,4 +102,3 @@ if(!empty($_GET))
     
 } 
 ?>
-

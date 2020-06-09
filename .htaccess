@@ -1,1 +1,2 @@
 ErrorDocument 404 /airbnb/404.php
+ErrorDocument 500 /airbnb/404.php

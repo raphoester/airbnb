@@ -53,6 +53,7 @@ if (!empty($_POST))
     <div>
         <div>
             <h1>Éditer votre profil</h1>
+            <h3>Pour modifier une information, inscrivez une nouvelle valeur dans le champ correspondant.</h3>
         </div>
         <div>
             <form action="" method ="POST">

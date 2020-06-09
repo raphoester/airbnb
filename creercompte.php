@@ -36,7 +36,7 @@
 <div class="sign_up">
     <div class="ui placeholder segment">
             <div class="column">
-                <h3 class="ui dividing header">Se créer un compte</h3>
+                <h3 class="ui dividing header">Créer un compte</h3>
                 <form action="" method="POST">
                     <div class="ui form">
                         <div class="field">
