@@ -61,30 +61,30 @@ else if(!empty($_POST))
     <div>
         <form action="" method = "post" enctype="multipart/form-data">
         <div class = "field">
-            <label for="titre">Titre de l'annonce</label>
+            <label for="titre">Titre de l'annonce</label><br>
             <input type="text" name="titre" id="titre" required>
         </div>
         <div class="field">
-            <label for="desc">Description</label>
+            <label for="desc">Description</label><br>
             <textarea name="description" id="desc" cols="30" rows="5" required></textarea>
         </div>
         <div class="field">
-            <label for="prix">Prix par jour et par personne</label>
-            <input type="number" min="1" step="any" value="" id="prix" name="prix" required>€
+            <label for="prix">Prix par jour et par personne</label><br>
+            <input type="number" min="1" step="any" value="" id="prix" name="prix" required> €
         </div>
 
         <div class="field">
-            <label for="ville">Ville</label>
+            <label for="ville">Ville</label><br>
             <input type="text" id="ville" placeholder="Porto" name="ville" required>
         </div>
 
         <div class="field">
-            <label for="places">Nombre maximal de locataires</label>
+            <label for="places">Nombre maximal de locataires</label><br>
             <input type="number" min="1" id="places" name="places" max = 150 required>
         </div>
 
         <div>
-            <label for="img">Images</label>
+            <label for="img">Images (formats acceptés : jpeg, jpg, png, gif)</label><br>
             <input type="file" id="img" name="img[]" multiple>
         </div>
 
