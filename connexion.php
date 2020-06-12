@@ -85,9 +85,9 @@
 if (!empty($_POST["email"]) && !empty($_POST["mdp"]))
 {
     
-    foreach ($pdo->query("SELECT email, mot_de_passe, id_utilisateur FROM utilisateur;") as $row)
+    foreach ($pdo->query("SELECT * FROM utilisateur;") as $row)
     {
-        if (($row["email"] == $_POST["email"]) && ($row["mot_de_passe"] == md5($_POST["mdp"])))
+        if (($row['banni'] == "0") && ($row['date_fin_exclusion'] < date('Y-m-d H:i:s')) && ($row["email"] == $_POST["email"]) && ($row["mot_de_passe"] == md5($_POST["mdp"])))
         {
             setcookie("email", $_POST["email"], time()+5000000, '/');
             setcookie("mdp", md5($_POST["mdp"]), time()+5000000, '/');
@@ -101,17 +101,35 @@ if (!empty($_POST["email"]) && !empty($_POST["mdp"]))
 
 if (!empty($_COOKIE["email"]) && !empty($_COOKIE["mdp"]))
 {
-    foreach ($pdo->query("SELECT email, mot_de_passe, id_utilisateur FROM utilisateur;") as $row)
+    foreach ($pdo->query("SELECT * FROM utilisateur;") as $row)
     {
-        if (($row["email"] == $_COOKIE["email"]) && ($row["mot_de_passe"] == md5($_COOKIE["mdp"])))
+        echo "<br><br>";
+        if ( ($row["email"] == $_COOKIE["email"]) && ($row["mot_de_passe"] == md5($_COOKIE["mdp"])))
         {
             $_SESSION["login"] = 1;
             $_SESSION["id"] = $row["id_utilisateur"];
-            header("Location: compte.php");
+            //header("Location: compte.php");
+            //exit();
+        }
+    }
+}
+
+if (!empty($_POST["email"]) && !empty($_POST["mdp"]))
+{
+    
+    foreach ($pdo->query("SELECT * FROM admin ;") as $row)
+    {
+        if (($row["email"] == $_POST["email"]) && ($row["mot_de_passe"] == md5($_POST["mdp"])))
+        {
+            $_SESSION["login_adm"] = 1;
+            $_SESSION["id_adm"] = $row["id_admin"];
+            header("Location: administration.php");
             exit();
         }
     }
 }
+
+
 ?>
 
 

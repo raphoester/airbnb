@@ -32,74 +32,48 @@ if(!empty($_GET))
         $_GET["prixMax"] = 100000;
     }
 
-    $sql = "SELECT * FROM annonce WHERE ville ="."'".$ville."' AND locataires_max >= ".$_GET['places']." AND prix >= ".$_GET['prixMin']." AND prix <= ".$_GET["prixMax"].";";
-    $annoncesCorrespondantes = $pdo->query($sql);
+    $sql = "select distinct * from annonce a 
+    left join reservation r 
+    on r.id_annonce_reservee = a.id_annonce
+    where   
+    ((r.date_debut < '".$_GET['dA']."' or r.date_debut > '".$_GET['dD']."') 
+    and (r.date_fin < '".$_GET['dA']."' or r.date_fin > '".$_GET['dD']."') or r.id_reservation is NULL)
+    and (a.prix > ".$_GET['prixMin'] ." and a.prix < ".$_GET['prixMax'].") 
+    and (a.ville = '".$_GET['ville']."')
+    and (locataires_max >= ".$_GET['places'].")
+    group by a.id_annonce 
+    ;";
 
-    $reservationsConflit = $pdo->query("SELECT * from reservation where (date_debut >= "."'".$_GET['dA']."' AND date_debut <= "."'".$_GET['dD']."') OR (date_fin >= "."'".$_GET['dA']."' AND date_fin <= "."'".$_GET['dD']."');");
-    
-    $tout = $annoncesCorrespondantes->fetchAll();
-    $conflits = $reservationsConflit->fetchAll();
+    $annonces = $pdo->query($sql)->fetchAll();
 
-
-
-
-
-    
-
-    $i=0;
-    for($i=0; $i<count($tout); $i++)
+    for($i=0; $i<count($annonces); $i++)
     {
-        $sql = "SELECT * FROM image WHERE id_annonce = ". $tout[$i]['id_annonce'] . ";" ;
+
+        $sql = "SELECT * FROM image WHERE id_annonce = ". $annonces[$i]['id_annonce'] . ";" ;
         $image = ($pdo -> query($sql));      
         $image = $image -> fetchAll();
         $afficher = True;
-        for($j=0;$j<count($conflits);$j++)
-        {
-            if($tout[$i]["id_annonce"] == $conflits[$j]["id_annonce"]){
-                $afficher = False;
-            }
-        }
 
-        $prixSejour = $tout[$i]['prix']*$dureeSejour*$_GET['places'];
-
-        if ($afficher){?>
-
-
-
-            <div class="ui unstackable items">
-                <div class="item">
-                    <div class="big-image">
+        $prixSejour = $annonces[$i]['prix']*$dureeSejour*$_GET['places'];
+        ?>
+        <div class="ui unstackable items">
+            <div class="item">
+                <div class="big-image">
                     <img src="<?php echo $image[0]['nom']?>" height="200px" width="300px">
-                    </div>
-                    <div class="content">
-                    <a class="header" href="<?php echo 'annonce.php?id='.$tout[$i]["id_annonce"]?>"><?php echo $tout[$i]["titre"]?></a>
+                </div>
+                <div class="content">
+                    <a class="header" href="<?php echo 'annonce.php?id='.$annonces[$i]["id_annonce"]?>"><?php echo $annonces[$i]["titre"]?></a>
                     <div class="description">
-                        <p><?php echo $tout[$i]["description"]?></p>
+                        <p><?php echo $annonces[$i]["description"]?></p>
                     </div>
                     <div class="extra">
                         <h5><?php echo $prixSejour;?> € </h5>
                     </div>
-                    </div>
                 </div>
-                <div class="ui grey inverted segment"></div>
             </div>
-
-
-            
-        <?php
-        }
-        else 
-        {
-            ?>
+            <div class="ui grey inverted segment">
             </div>
-            <h3><a href="<?php echo 'annonce.php?id='.$tout[$i]["id_annonce"]?>"><?php echo $tout[$i]["titre"]?></a></h3>
-            <h5><?php echo $tout[$i]['ville']?></h5>
-            <h4>RÉSERVÉ !!!!!!!!!!!! fallait aller plus vite mon pote<br><h4>
-            </div>
-            <?php
-        }
-
-    }  
-    
+        </div>
+   <?php }
 } 
 ?>
