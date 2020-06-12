@@ -1,12 +1,24 @@
 .type{
     left: 20%;
     position: relative;
-    padding-top: 3%;
+    padding-top: 10%;
 }
+
+
+.bg{
+    background-image: url("https://images.pexels.com/photos/917494/pexels-photo-917494.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260");
+    height: 100%;
+    
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
 
 .field{
     max-width: 400px;
 }
+
 
 .three.fields{
     max-width: 1700px;
@@ -53,3 +65,40 @@
     width: 800px;
     margin: 50px 0px;
 }
+
+.nvl_annonce{
+    margin: 0 auto;
+    margin-top: 3%;
+    width: 500px;
+    height: 1000px;
+}
+
+.editinfo{
+    margin: 0 auto;
+    margin-top: 3%;
+    width: 400px;
+}
+
+.card.hoverable{
+    text-decoration: none;
+}
+
+.card.mb-3{
+    width: 500px;
+    margin: 0 auto;
+}
+
+.title{
+    text-align: center;
+}
+
+.card-group{
+    width: 400px;
+    justify-content: center;
+    margin: 30px 116px 0px 116px;
+}
+
+.a{
+    text-decoration: none;
+}
+

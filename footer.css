@@ -1,0 +1,16 @@
+footer{
+    margin-top: 3%;
+    bottom: 0;
+    width: 100%;
+    height: 50px;
+}
+
+.rs{
+    position: absolute;
+    right: 3%;
+    float: right;
+    display: inline-block;
+    font-size: 20px;
+}
+
+

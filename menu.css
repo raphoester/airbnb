@@ -19,3 +19,6 @@ nav{
     height: 100px;
 }
 
+.col-lg-6.col-md-6.mb-4.d-flex.align-items-stretch{
+    width: 500px;
+}

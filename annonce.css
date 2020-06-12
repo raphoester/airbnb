@@ -21,14 +21,12 @@
 }
 
 .ui.clearing.segment{
-    width: 1110px;
+    width: 1100px;
 }
 
-.carousel-item{
+.carousel.slide{
     max-height: 700px;
 }
-
-/* nvl annonce */
 
 .nvl_annonce{
     margin: 0 auto;
