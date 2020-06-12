@@ -8,19 +8,17 @@ if (empty($_SESSION["login"]) || $_SESSION["login"] != 1)
     exit();   
 }
 
+var_dump($_POST);
+
 $annonces = $pdo->query("SELECT * FROM annonce WHERE id_utilisateur =".$donnees_utilisateur["id_utilisateur"]." ;");
 $annonces = $annonces->fetchAll();
 for ($i = 0 ; $i<count($annonces); $i++)
 {
     if($annonces[$i]["id_annonce"] == $_GET["id"])
     {
+
         $annonce_a_modifier = $annonces[$i];
     }
-}
-if(empty($annonce_a_modifier))
-{
-    var_dump($_GET);
-    // header("location : 404.php");
 }
 
 
@@ -53,7 +51,34 @@ if(!empty($_POST))
     }
 
 
-    
+    var_dump($annonce_a_modifier);
+
+//suppression des images 1-2-3
+    if(!empty($_POST["sprimg"]))
+    {
+        if($_POST["sprimg"] !=NULL && $annonce_a_modifier["image"] != NULL && $annonce_a_modifier["image"]!= "")
+        {
+            unlink($annonce_a_modifier['image']);
+            $pdo->exec("UPDATE annonce SET image = \"\";");
+        }
+    }
+    if(!empty($_POST["sprimg2"]))
+    {
+        if($_POST["sprimg2"] !=NULL && $annonce_a_modifier["image2"] != NULL && $annonce_a_modifier["image2"]!= "")
+        {
+            unlink($annonce_a_modifier['image2']);
+            $pdo->exec("UPDATE annonce SET image2 = \"\";");
+        }
+    }
+
+    if(!empty($_POST["sprimg3"]))
+    {
+        if($_POST["sprimg3"] !=NULL && $annonce_a_modifier["image3"] != NULL && $annonce_a_modifier["image3"]!= "")
+        {
+            unlink($annonce_a_modifier['image3']);
+            $pdo->exec("UPDATE annonce SET image3 = \"\";");
+        }
+    }
 
     $description = str_replace("'", "\'", $_POST['description']);
     $description = str_replace('"', "\"", $description);
@@ -63,41 +88,34 @@ if(!empty($_POST))
 
     $ville = str_replace("'", "\'", $_POST['ville']);
     $ville = str_replace('"', "\"", $ville);
-
-
-    $erreurs=array();
-    $extension=array("jpeg","jpg","png","gif");
-    for ($i = 0; $i<count($_FILES["img"]["tmp_name"]) ; $i++)
+    
+    $folder = NULL;
+    if (!empty($_FILES))
     {
-        $file_name = "img/annonces/".time().$donnees_utilisateur['id_utilisateur'].$_FILES["img"]["name"][$i];
-        $file_tmp=$_FILES["img"]["tmp_name"][$i];
-        $ext=pathinfo($file_name,PATHINFO_EXTENSION);
-        
-        if(in_array($ext,$extension)) 
-        {
-            move_uploaded_file($_FILES["img"]["tmp_name"][$i],$file_name);            
-        }
-        else 
-        {
-            array_push($erreurs,"$file_name");
-        }
-        $sql ="insert into image(nom, id_annonce) values ('".mysqli_real_escape_string($mysqli, $file_name)."',".$annonce_a_modifier['id_annonce'].");";
-        $pdo->exec($sql);
+        $filename = $_FILES["img"]["name"];
+        $tempname = $_FILES["img"]["tmp_name"];
+        $folder = "img/" .$filename;
+        move_uploaded_file($tempname, $folder);
     }
 
-}
 
-if(!empty($_GET) && !empty($_GET['idsuppr']))
-{
-    $_GET['idsuppr'] = mysqli_real_escape_string($mysqli, $_GET['idsuppr']);
-    $images = $pdo->query("select * from image where id_annonce = ".$annonce_a_modifier['id_annonce'].";")->fetchAll();
-    for ($i = 0; $i<count($images); $i++)
+    if($annonce_a_modifier["image"] == NULL)
     {
-        if ($images[$i]["id_image"] == $_GET['idsuppr'])
-        {
-            $pdo->exec("delete from image where id_image = ".$_GET['idsuppr'].";");
-        }
-    } 
+        $sql = "UPDATE annonce SET titre='".$titre."', description = '".$description."', ville = '".$ville."', prix = ".$_POST['prix'].", locataires_max = ".$_POST['places'].", image = '".$folder."' WHERE id_annonce = ".$annonce_a_modifier['id_annonce'].";";
+    }
+    else if ($annonce_a_modifier["image2"] == NULL)
+    {
+        $sql = "UPDATE annonce SET titre='".$titre."', description = '".$description."', ville = '".$ville."', prix = ".$_POST['prix'].", locataires_max = ".$_POST['places'].", image2 = '".$folder."' WHERE id_annonce = ".$annonce_a_modifier['id_annonce'].";";
+    }
+    else if ($annonce_a_modifier["image3"] == NULL)
+    {
+        $sql = "UPDATE annonce SET titre='".$titre."', description = '".$description."', ville = '".$ville."', prix = ".$_POST['prix'].", locataires_max = ".$_POST['places'].", image3 = '".$folder."' WHERE id_annonce = ".$annonce_a_modifier['id_annonce'].";";
+    }
+
+
+    
+    $result = $pdo->exec($sql);
+
 }
 
 ?>
@@ -108,45 +126,108 @@ if(!empty($_GET) && !empty($_GET['idsuppr']))
     <div>
         <form action="" method = "POST" enctype="multipart/form-data">
         <div class = "field">
-            <label for="titre">Titre de l'annonce</label><br>
+            <label for="titre">Titre de l'annonce</label>
             <input type="text" name="titre" id="titre" placeholder = "<?php echo $annonce_a_modifier["titre"];?>">
         </div>
         <div class="field">
-            <label for="desc">Description</label><br>
+            <label for="desc">Description</label>
             <textarea name="description" id="desc" cols="30" rows="5" placeholder = "<?php echo $annonce_a_modifier["description"];?>"></textarea>
         </div>
         <div class="field">
-            <label for="prix">Prix par jour et par personne</label><br>
+            <label for="prix">Prix par jour et par personne</label>
             <input type="number" min="1" step="any" value="" id="prix" name="prix" max= 100000 placeholder = "<?php echo $annonce_a_modifier["prix"];?>">€
         </div>
         
         <div class="field">
-            <label for="ville">Ville</label><br>
+            <label for="ville">Ville</label>
             <input type="text" id="ville" placeholder="Porto" name="ville" placeholder = "<?php echo $annonce_a_modifier["ville"];?>">
         </div>
 
         <div class="field">
-            <label for="places">Nombre maximal de locataires</label><br>
+            <label for="places">Nombre maximal de locataires</label>
             <input type="number" min="1" id="places" name="places" max = 150 placeholder = "<?php echo $annonce_a_modifier["locataires_max"];?>">
         </div>
 
         <div class="field">
-            <?php 
-                $sql = "select * from image where id_annonce = ".$annonce_a_modifier['id_annonce'].";";
-                $liste_images = $pdo->query($sql)->fetchAll();
+            <label for="img">Images</label>
+            </div>
+                <?php 
+               //affichage des images
+                    if($annonce_a_modifier["image"]!=NULL)
+                    {
+                        ?>
+                            <div>
+                                <img width="300px" height="200px" src="<?php echo $annonce_a_modifier['image'].time()?>">
+                            </div>
+                        <?php
+                        
+                    }                    
+                    
+                    if($annonce_a_modifier["image2"]!=NULL)
+                    {
+                        ?>
+                            <div>
+                                <img width="300px" height="200px" src="<?php echo $annonce_a_modifier['image2'].time()?>">
+                            </div>
+                        <?php
+                        
+                    }
+                    
+                    if($annonce_a_modifier["image3"]!=NULL)
+                    {
+                        ?>
+                            <div>
+                                <img width="300px" height="200px" src="<?php echo $annonce_a_modifier['image3'].time()?>">
+                            </div>
+                        <?php
+                        
+                    }  
+                    //ajouter une image
+                    if (!($annonce_a_modifier["image"]!=NULL && $annonce_a_modifier["image2"]!=NULL && $annonce_a_modifier["image3"]!=NULL))
+                    {
+                        ?>
+                        <div>
+                        <h4>Ajouter une image (maximum : 3)</h4>
+                        <input type="file" id="img" name="img">
+                        </div> 
+                    <?php
+                    }
 
-                for ($i = 0; $i<count($liste_images); $i++)
-                {
-                ?>
-                    <img style = "width : 200px; height : 150px;"src="<?php echo $liste_images[$i]['nom'];?>" id = 'image' alt="image-annonce"> 
-                    <label for="image"><a href="?id=<?php echo $annonce_a_modifier['id_annonce'];?>&idsuppr=<?php echo $liste_images[$i]['id_image'];?>">❌</a></label>   
-                <?php
-                }
+                    if(($annonce_a_modifier["image"]!=NULL || $annonce_a_modifier["image2"]!=NULL || $annonce_a_modifier["image3"]!=NULL))
+                    {
+                        if($annonce_a_modifier["image"]!=NULL)
+                        {
+                        ?>
+                        <div>
+                        <label for="supprImage1">Supprimer l'image 1</label>
+                        <input type="checkbox" id="supprImage1" name="sprimg1">
+                        </div>                        
+                        <?php
+                        }
+
+                        if($annonce_a_modifier["image2"]!=NULL)
+                        {
+                        ?>
+                        <div>
+                        <label for="supprImage2">Supprimer l'image 2</label>
+                        <input type="checkbox" id="supprImage2" name="sprimg2">
+                        </div>                        
+                        <?php
+                        }
+
+                        if($annonce_a_modifier["image3"]!=NULL)
+                        {
+                        ?>
+                        <div>
+                        <label for="supprImage3">Supprimer l'image 3</label>
+                        <input type="checkbox" id="supprImage3" name="sprimg3">
+                        </div>                        
+                        <?php
+                        }
+                    }
                 
-            ?>
+                ?>
 
-            <label for="img">Images (formats acceptés : jpeg, jpg, png, gif)</label><br>
-            <input type="file" id="img" name="img[]" multiple>
         </div>
 
         <div class="field">
