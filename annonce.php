@@ -79,7 +79,7 @@ else
     $pdostatementDV = $pdo->query($sql);
     $loueur = $pdostatementDV->fetch();
 
-    $sql = "SELECT * FROM image WHERE id_annonce = ". $annonce['id_annonce'] . ";" ;
+    $sql = "SELECT * FROM image WHERE id_annonce_image = ". $annonce['id_annonce'] . ";" ;
     $image = ($pdo -> query($sql));      
     $image = $image -> fetchAll();
     ?>

@@ -31,7 +31,6 @@ if(!empty($_FILES))
     }
     $file_name = (mysqli_real_escape_string($mysqli, $file_name));
     $sql ="update utilisateur set image_profil = '".$file_name."' where id_utilisateur = ".$donnees_utilisateur['id_utilisateur'].";";
-    echo $sql;
     $pdo->exec($sql);
 
 }
@@ -78,48 +77,67 @@ if (!empty($_POST))
 
 
 ?>
-<section>
-    <div>
-        <div>
-            <h1>Éditer votre profil</h1>
-            <h3>Pour modifier une information, inscrivez une nouvelle valeur dans le champ correspondant.</h3>
-        </div>
-        <div>
-            <form action="" method ="POST" enctype="multipart/form-data">
-                <div>
-                    <label for="nom">Nom</label><br>
-                    <input type="text" name = "nom" id="nom" placeholder = "<?php echo $donnees_utilisateur['nom'];?>">
+
+<div class="editinfo">
+    <div class="ui placeholder segment">
+        <div class="column">
+            <h3 class="ui dividing header">Éditer votre profil</h3>
+            <form action="" method="POST" enctype="multipart/form-data">
+                <div class="ui form">
+                    <div class="field">
+                        <label for="nom">Nom</label>
+                        <div class="ui left icon input">
+                            <input type="text" name = "nom" id="nom" placeholder = "<?php echo $donnees_utilisateur['nom'];?>">
+                            <i class="user icon"></i>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label for="prenom">Prenom</label>
+                        <div class="ui left icon input">
+                            <input type="text" name="prenom" id="prenom" placeholder = "<?php echo $donnees_utilisateur['prenom'];?>">
+                            <i class="user icon"></i>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label for="courriel">Email</label>
+                        <div class="ui left icon input">
+                            <input type="email" name="email" id="email" placeholder = "<?php echo $donnees_utilisateur['email'];?>">
+                            <i class="at icon"></i>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label for="pdp">Image de profil (formats acceptés : jpg, jpeg, png, gif)</label>
+                        <img class="pdp" style="width:50px" height="40px" src="<?php echo $donnees_utilisateur['image_profil'];?>" alt="photo de profil">
+                        <div>
+                            <input type="file" id="pdp" name="img"  placeholder ="modifier...">
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label for="mdp1">Ancien mot de passe</label>
+                        <div class="ui left icon input">
+                            <input type="password" name="ancienMDP" id="mdp1">
+                            <i class="lock icon"></i>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label for="mdp2">Nouveau mot de passe</label>
+                        <div class="ui left icon input">
+                            <input type="password" name="nouveauMDP" id="mdp2">
+                            <i class="lock icon"></i>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label for="mdp2conf">Confirmation mot de passe</label>
+                        <div class="ui left icon input">
+                            <input type="password" name="nouveauMDPConf" id="mdp2conf">
+                            <i class="lock icon"></i>
+                        </div>
+                    </div>
+                    <input class="ui blue submit button" type="submit" value="Confirmer la modification"></input>
                 </div>
-                <div>
-                    <label for="prenom">Prénom</label><br>
-                    <input type="text" name="prenom" id="prenom" placeholder = "<?php echo $donnees_utilisateur['prenom'];?>">
-                </div>
-                <div>
-                    <label for="courriel">Courriel</label><br>
-                    <input type="email" name="email" id="email"  placeholder = "<?php echo $donnees_utilisateur['email'];?>">
-                </div>
-                <div>
-                    <label for="pdp">Image de profil (formats acceptés : jpg, jpeg, png, gif)</label><br>
-                    <img style="width:100px;" src="<?php echo $donnees_utilisateur['image_profil'];?>" alt="photo de profil"><br>
-                    <input type="file" id="pdp" name="img"  placeholder ="modifier...">
-                </div>
-                    <label for="mdp1">Ancien mot de passe</label><br>
-                    <input type="password" name="ancienMDP" id="mdp1">
-                </div>
-                <div>
-                    <label for="mdp2">Nouveau mot de passe</label><br>
-                    <input type="password" name="nouveauMDP" id="mdp2">
-                </div>
-                <div>
-                    <label for="mdp2conf">Retapez votre nouveau mot de passe : </label><br>
-                    <input type="password" name="nouveauMDPConf" id="mdp2conf">
-                </div>
-                <div>
-                    <input type="submit" value="Confirmer la modification">
-                </div>
-            
             </form>
         </div>
     </div>
-</section>
+</div>
+
 <?php include("inc/footer.php");?>

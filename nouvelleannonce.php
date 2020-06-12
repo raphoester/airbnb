@@ -53,47 +53,57 @@ else if(!empty($_POST))
 
 ?>
 
-
-<div>
-    <div>
-        <h1>Créer une annonce</h1>
-    </div>
-    <div>
-        <form action="" method = "post" enctype="multipart/form-data">
-        <div class = "field">
-            <label for="titre">Titre de l'annonce</label><br>
-            <input type="text" name="titre" id="titre" required>
+<div class="nvl_annonce">
+    <div class="ui placeholder segment">
+        <div class="column">
+            <h3 class="ui dividing header">Créer une annonce</h3>
+            <form action="" method="POST" enctype="multipart/form-data">
+                <div class="ui form">
+                    <div class="field">
+                        <label for="titre">Titre de l'annonce</label>
+                        <div class="ui input">
+                            <input class="test" type="text" name="titre" id="titre" required>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label for="desc">Description</label>
+                        <div class="ui left icon input">
+                            <textarea class="test" size="50" name="description" id="desc" cols="30" rows="5" required></textarea>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label for="prix">Prix par jour et par personne</label>
+                        <div class="ui left icon input">
+                            <input class="test" size="50" type="number" min="1" step="any" value="" id="prix" name="prix" required>
+                            <i class="euro icon"></i>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label for="ville">Ville</label>
+                        <div class="ui left icon input">
+                            <input type="text" id="ville" placeholder="Porto" name="ville" required>
+                            <i class="at icon"></i>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label for="places">Nombre maximal de locataires</label>
+                        <div class="ui left icon input">
+                            <input class="test" type="number" min="1" id="places" name="places" max = 150 required>
+                            <i class="bed icon"></i>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label for="img">Images</label>
+                        <div class="ui left icon input">
+                            <input type="file" id="img" name="img[]" multiple>
+                            <i class="images outline icon"></i>
+                        </div>
+                    </div>
+                    <input class="ui blue submit button" type="submit" value="Valider !" name="valider" id="validation"></input>
+                </div>
+            </form>
         </div>
-        <div class="field">
-            <label for="desc">Description</label><br>
-            <textarea name="description" id="desc" cols="30" rows="5" required></textarea>
-        </div>
-        <div class="field">
-            <label for="prix">Prix par jour et par personne</label><br>
-            <input type="number" min="1" step="any" value="" id="prix" name="prix" required> €
-        </div>
-
-        <div class="field">
-            <label for="ville">Ville</label><br>
-            <input type="text" id="ville" placeholder="Porto" name="ville" required>
-        </div>
-
-        <div class="field">
-            <label for="places">Nombre maximal de locataires</label><br>
-            <input type="number" min="1" id="places" name="places" max = 150 required>
-        </div>
-
-        <div>
-            <label for="img">Images (formats acceptés : jpeg, jpg, png, gif)</label><br>
-            <input type="file" id="img" name="img[]" multiple>
-        </div>
-
-        <div class="field">
-            <input type="submit" value = "Valider !">
-        </div>
-
-        
-        </form>
     </div>
 </div>
+
 <?php include("inc/footer.php");?>
