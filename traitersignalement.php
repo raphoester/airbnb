@@ -55,8 +55,6 @@
 
             $pdo->exec('update signalement set traitement = True where id_signalement = '.$signalement["id_signalement"].';');
         }
-    
-    
     }
     else
     {

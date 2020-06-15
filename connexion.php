@@ -114,20 +114,20 @@ if (!empty($_COOKIE["email"]) && !empty($_COOKIE["mdp"]))
     }
 }
 
-// if (!empty($_POST["email"]) && !empty($_POST["mdp"]))
-// {
+if (!empty($_POST["email"]) && !empty($_POST["mdp"]))
+{
     
-//     foreach ($pdo->query("SELECT * FROM admin ;") as $row)
-//     {
-//         if (($row["email"] == $_POST["email"]) && ($row["mot_de_passe"] == md5($_POST["mdp"])))
-//         {
-//             $_SESSION["login_adm"] = 1;
-//             $_SESSION["id_adm"] = $row["id_admin"];
-//             header("Location: administration.php");
-//             exit();
-//         }
-//     }
-// }
+    foreach ($pdo->query("SELECT * FROM admin ;") as $row)
+    {
+        if (($row["email"] == $_POST["email"]) && ($row["mot_de_passe"] == md5($_POST["mdp"])))
+        {
+            $_SESSION["login_adm"] = 1;
+            $_SESSION["id_adm"] = $row["id_admin"];
+            header("Location: administration.php");
+            exit();
+        }
+    }
+}
 
 
 ?>

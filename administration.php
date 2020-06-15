@@ -20,7 +20,7 @@
                     <a href="signalements.php">Signalements</a>
                 </li>
                 <li>
-                    <a href="moderation.php">Modération des membres</a>
+                    <a href="listedesmembres.php">Liste des membres</a>
                 </li>
             </ul>
         </div>

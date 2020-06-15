@@ -71,34 +71,34 @@ if (empty($_GET["id"]))
 }
 else
 {
-    $previ = False;
-    if(empty($_GET['dd']) || empty($_GET['da']) || empty($_GET['places']))
-    {
-      $previ = True;
-    }
-    else
-    {
-      $date1 = new DateTime($_GET["da"]);
-      $date2 = new DateTime($_GET["dd"]);
+  $sql = "select * from annonce where id_annonce =". $_GET['id'].";";
+  $pdostatementDA = $pdo->query($sql);
+  $annonce = ($pdostatementDA->fetch());
+  $previ = False;
+  
+  if(empty($_GET['dd']) || empty($_GET['da']) || empty($_GET['places']))
+  {
+    $previ = True;
+  }
+  else
+  {
+    $date1 = new DateTime($_GET["da"]);
+    $date2 = new DateTime($_GET["dd"]);
 
-      $intervale = $date1->diff($date2);
-      $dureeSejour = $intervale->format('%a');
-      $prix = $dureeSejour*$annonce['prix'];
-    }
+    $intervale = $date1->diff($date2);
+    $dureeSejour = $intervale->format('%a');
+    $prix = $dureeSejour*$annonce['prix'];
+  }
 
-    $sql = "select * from annonce where id_annonce =". $_GET['id'].";";
-    $pdostatementDA = $pdo->query($sql);
-    $annonce = ($pdostatementDA->fetch());
+  $sql = "select * from utilisateur where id_utilisateur =".$annonce["id_publicateur"].";";
+  $pdostatementDV = $pdo->query($sql);
+  $loueur = $pdostatementDV->fetch();
 
-    $sql = "select * from utilisateur where id_utilisateur =".$annonce["id_publicateur"].";";
-    $pdostatementDV = $pdo->query($sql);
-    $loueur = $pdostatementDV->fetch();
+  $sql = "SELECT * FROM image WHERE id_annonce_image = ". $annonce['id_annonce'] . ";" ;
+  $image = ($pdo->query($sql));      
+  $image = $image->fetchAll();
 
-    $sql = "SELECT * FROM image WHERE id_annonce_image = ". $annonce['id_annonce'] . ";" ;
-    $image = ($pdo -> query($sql));      
-    $image = $image -> fetchAll();
-
-    ?>
+  ?>
     
 
 <div class="container">

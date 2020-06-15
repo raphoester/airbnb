@@ -18,12 +18,12 @@ if (empty($_SESSION["login"]) || $_SESSION["login"] != 1)
 if (!empty($_GET["idsuppr"]))
 {
     $pdo->exec("delete from image where id_annonce_image = ".$_GET["idsuppr"].";");
+    $pdo->exec("delete from reservation where id_annonce_reservee = ".$_GET['idsuppr'].";");
     $pdo->exec("delete from annonce where id_annonce = ".$_GET["idsuppr"].";");
 }
 
 
 $annonces = $pdo->query("SELECT DISTINCT * FROM annonce left join image on image.id_annonce_image = annonce.id_annonce WHERE annonce.id_publicateur =".$donnees_utilisateur["id_utilisateur"]." GROUP BY annonce.id_annonce ORDER BY annonce.id_annonce;");
-
 $mes_annonces = $annonces->fetchAll();
 
 ?>
@@ -31,7 +31,7 @@ $mes_annonces = $annonces->fetchAll();
 <section>
     <div>
         <h1>
-            Toutes vos annonces    :
+            Toutes vos annonces :
         </h1>
 </section>
 

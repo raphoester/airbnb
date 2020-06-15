@@ -18,9 +18,9 @@ else if(!empty($_POST))
     $ville = str_replace("'", "\'", $_POST['ville']);
     $ville = str_replace('"', "\"", $ville);
 
-    $sql = "INSERT INTO annonce (titre, description, ville, prix, locataires_max, id_utilisateur) VALUES('".$titre."','".$description."','".$ville."',".$_POST['prix'].",".$_POST['places'].",".$donnees_utilisateur["id_utilisateur"].");";
+    $sql = "INSERT INTO annonce (titre, description, ville, prix, locataires_max, id_publicateur) VALUES('".$titre."','".$description."','".$ville."',".$_POST['prix'].",".$_POST['places'].",".$donnees_utilisateur["id_utilisateur"].");";
     $pdo->exec($sql);
-    $sql = "select id_annonce from annonce where id_utilisateur =".$donnees_utilisateur['id_utilisateur']." and titre ='".$titre."';)";
+    $sql = "select id_annonce from annonce where id_publicateur =".$donnees_utilisateur['id_utilisateur']." and titre ='".$titre."';)";
     $annonce = $pdo->query($sql)->fetch();
 
 

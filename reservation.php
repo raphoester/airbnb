@@ -47,6 +47,7 @@ $affiche = False;
             $sql = "update utilisateur set capital = capital - ".$prix." where id_utilisateur = ".$donnees_utilisateur['id_utilisateur'].";";
             $pdo->exec($sql);
             $sql = "update utilisateur set capital = capital + ".(0.9*$prix)." where id_utilisateur = ".$annonce['id_publicateur'].";";
+            $pdo->exec($sql);
         }
         else
         {   ?>
