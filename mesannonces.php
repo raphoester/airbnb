@@ -22,7 +22,7 @@ if (!empty($_GET["idsuppr"]))
 }
 
 
-$annonces = $pdo->query("SELECT DISTINCT * FROM annonce left join image on image.id_annonce_image = annonce.id_annonce WHERE id_utilisateur =".$donnees_utilisateur["id_utilisateur"]." GROUP BY annonce.id_annonce ORDER BY annonce.id_annonce;");
+$annonces = $pdo->query("SELECT DISTINCT * FROM annonce left join image on image.id_annonce_image = annonce.id_annonce WHERE annonce.id_publicateur =".$donnees_utilisateur["id_utilisateur"]." GROUP BY annonce.id_annonce ORDER BY annonce.id_annonce;");
 
 $mes_annonces = $annonces->fetchAll();
 

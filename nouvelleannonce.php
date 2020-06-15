@@ -42,7 +42,7 @@ else if(!empty($_POST))
         {
             array_push($erreurs,"$file_name");
         }
-        $sql ="insert into image(nom, id_annonce) values ('".mysqli_real_escape_string($mysqli, $file_name)."',".$annonce['id_annonce'].");";
+        $sql ="insert into image(nom, id_annonce_image) values ('".mysqli_real_escape_string($mysqli, $file_name)."',".$annonce['id_annonce'].");";
         $pdo->exec($sql);
     }
 

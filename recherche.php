@@ -49,7 +49,7 @@ if(!empty($_GET))
     for($i=0; $i<count($annonces); $i++)
     {
 
-        $sql = "SELECT * FROM image WHERE id_annonce = ". $annonces[$i]['id_annonce'] . ";" ;
+        $sql = "SELECT * FROM image WHERE id_annonce_image = ". $annonces[$i]['id_annonce'] . ";" ;
         $image = ($pdo -> query($sql));      
         $image = $image -> fetchAll();
         $afficher = True;
@@ -59,13 +59,11 @@ if(!empty($_GET))
         <div class="ui unstackable items">
             <div class="item">
                 <div class="big-image">
-                    <img src="<?php echo $image[0]['nom']?>" height="200px" width="300px">
+                    <img src="<?php echo $image[0]['nom'];?>" height="200px" width="300px">
                 </div>
                 <div class="content">
-                    <a class="header" href="<?php echo 'annonce.php?id='.$annonces[$i]["id_annonce"]?>"><?php echo $annonces[$i]["titre"]?></a>
-                    <div class="description">
-                        <p><?php echo $annonces[$i]["description"]?></p>
-                    </div>
+                    
+                    <a  class="header" href="annonce.php?id=<?php echo $annonces[$i]['id_annonce'];?>&da=<?php echo $_GET['dA'];?>&dd=<?php echo $_GET['dD'];?>&places=<?php echo $_GET['places'];?>"><?php echo $annonces[$i]["titre"];?></a>
                     <div class="extra">
                         <h5><?php echo $prixSejour;?> € </h5>
                     </div>

@@ -71,22 +71,39 @@ if (empty($_GET["id"]))
 }
 else
 {
+    $previ = False;
+    if(empty($_GET['dd']) || empty($_GET['da']) || empty($_GET['places']))
+    {
+      $previ = True;
+    }
+    else
+    {
+      $date1 = new DateTime($_GET["da"]);
+      $date2 = new DateTime($_GET["dd"]);
+
+      $intervale = $date1->diff($date2);
+      $dureeSejour = $intervale->format('%a');
+      $prix = $dureeSejour*$annonce['prix'];
+    }
+
     $sql = "select * from annonce where id_annonce =". $_GET['id'].";";
     $pdostatementDA = $pdo->query($sql);
     $annonce = ($pdostatementDA->fetch());
 
-    $sql = "select * from utilisateur where id_utilisateur =".$annonce["id_utilisateur"].";";
+    $sql = "select * from utilisateur where id_utilisateur =".$annonce["id_publicateur"].";";
     $pdostatementDV = $pdo->query($sql);
     $loueur = $pdostatementDV->fetch();
 
     $sql = "SELECT * FROM image WHERE id_annonce_image = ". $annonce['id_annonce'] . ";" ;
     $image = ($pdo -> query($sql));      
     $image = $image -> fetchAll();
+
     ?>
+    
 
 <div class="container">
     <div>
-        <h1><?php echo $annonce['titre'];?></h1>
+      <h1><?php echo $annonce['titre'];?></h1>
     </div>
     <div id="carouselExampleInterval" class="carousel slide" data-ride="carousel">
       <div class="carousel-inner">
@@ -118,14 +135,40 @@ else
 
         <h4>Nombre maximum d'occupants : <?php echo $annonce["locataires_max"];?></h4>
         <h4>Prix par personne et par nuitée : <?php echo $annonce["prix"];?> €</h4>
+        <?php if (!$previ)
+        {
+          ?> 
+          <h4>Prix total : <?php echo $prix; ?> €</h4>
+          <?php 
+        }
+        ?>
     </div>
     <div class="ui grey inverted segment"></div>
     <div class="description">
       <h4 for="description_annonce">Description :</h4>
       <h4 id=description_annonce><?php echo $annonce["description"];?></h4>
     </div>
-    <div class="ui right floated segment">
-      Réserver
+    <div >
+      <?php
+      if(!$previ)
+      {
+        if (!empty($_SESSION["login"]) && $_SESSION['login'] == 1){
+          ?>
+          <a class="ui big button" href="reservation.php?id_annonce=<?php echo $annonce["id_annonce"];?>&da=<?php echo $_GET['da'];?>&dd=<?php echo $_GET['dd'];?>&places=<?php echo $_GET['places'];?>">Réserver maintenant</a> 
+          <?php
+        }
+        else
+        {
+          ?>
+          <a class= "ui big button" href="connexion.php">Se connecter pour réserver</a>
+          <?php
+        }
+      }
+      else
+      {
+        echo "<p><br>Mode de prévisualisation de l'annonce. Veuillez <a href= 'index.php'>lancer une recherche</a> pour réserver.</p>";
+      }
+      ?>  
     </div>
 </div>
 

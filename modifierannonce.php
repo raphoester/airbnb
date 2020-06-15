@@ -8,7 +8,7 @@ if (empty($_SESSION["login"]) || $_SESSION["login"] != 1)
     exit();   
 }
 
-$annonces = $pdo->query("SELECT * FROM annonce WHERE id_utilisateur =".$donnees_utilisateur["id_utilisateur"]." ;");
+$annonces = $pdo->query("SELECT * FROM annonce WHERE id_publicateur =".$donnees_utilisateur["id_utilisateur"]." ;");
 $annonces = $annonces->fetchAll();
 for ($i = 0 ; $i<count($annonces); $i++)
 {
@@ -81,7 +81,7 @@ if(!empty($_POST))
         {
             array_push($erreurs,"$file_name");
         }
-        $sql ="insert into image(nom, id_annonce) values ('".mysqli_real_escape_string($mysqli, $file_name)."',".$annonce_a_modifier['id_annonce'].");";
+        $sql ="insert into image(nom, id_annonce_image) values ('".mysqli_real_escape_string($mysqli, $file_name)."',".$annonce_a_modifier['id_annonce'].");";
         $pdo->exec($sql);
     }
 
@@ -132,7 +132,7 @@ if(!empty($_GET) && !empty($_GET['idsuppr']))
 
         <div class="field">
             <?php 
-                $sql = "select * from image where id_annonce = ".$annonce_a_modifier['id_annonce'].";";
+                $sql = "select * from image where id_annonce_image = ".$annonce_a_modifier['id_annonce'].";";
                 $liste_images = $pdo->query($sql)->fetchAll();
 
                 for ($i = 0; $i<count($liste_images); $i++)
