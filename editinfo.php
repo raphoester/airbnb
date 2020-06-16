@@ -41,7 +41,7 @@ if (!empty($_POST))
     if(!empty($_POST["nom"]))
     {
         $_POST["nom"]= str_replace("'", "\'", $_POST['nom']);
-        $_POST["nom"] = str_replace('"', "\"", $_POST["nom"]);
+        $_POST["nom"] = str_replace('"', '\"', $_POST["nom"]);
 
         $sql = "update utilisateur set nom ='". $_POST['nom']."'where id_utilisateur =".$donnees_utilisateur['id_utilisateur'].";";
         $pdo->exec($sql); 
@@ -50,7 +50,7 @@ if (!empty($_POST))
     if(!empty($_POST["prenom"]))
     {
         $_POST["prenom"]= str_replace("'", "\'", $_POST['prenom']);
-        $_POST["prenom"] = str_replace('"', "\"", $_POST["prenom"]);
+        $_POST["prenom"] = str_replace('"', '\"', $_POST["prenom"]);
 
         $sql = "update utilisateur set prenom ='". $_POST['prenom']."'where id_utilisateur =".$donnees_utilisateur['id_utilisateur'].";";
         $pdo->exec($sql); 
@@ -59,7 +59,7 @@ if (!empty($_POST))
     if(!empty($_POST["email"]))
     {
         $_POST["email"]= str_replace("'", "\'", $_POST['email']);
-        $_POST["email"] = str_replace('"', "\"", $_POST["email"]);
+        $_POST["email"] = str_replace('"', '\"', $_POST["email"]);
 
         $sql = "update utilisateur set email ='". $_POST['email']."'where id_utilisateur =".$donnees_utilisateur['id_utilisateur'].";";
         $pdo->exec($sql); 
@@ -67,9 +67,8 @@ if (!empty($_POST))
 
     if(!empty($_POST["ancienMDP"]) && !empty($_POST["nouveauMDP"]) && !empty($_POST["nouveauMDPConf"]) && (md5($_POST["ancienMDP"]) == $donnees_utilisateur["mot_de_passe"]) && (md5($_POST["nouveauMDP"]) == md5($_POST["nouveauMDPConf"])))
     {
-        echo $_POST["nouveauMDP"];
-        echo md5($_POST["nouveauMDP"]);
         $sql = "update utilisateur set mot_de_passe ='". md5($_POST['nouveauMDP'])."'where id_utilisateur =".$donnees_utilisateur['id_utilisateur'].";";
+        $pdo->exec($sql);
     }
     $donnees_utilisateur = $pdo->query("select * from utilisateur where id_utilisateur = ".$donnees_utilisateur['id_utilisateur'].";")->fetch();
 }
