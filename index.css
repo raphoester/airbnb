@@ -4,39 +4,45 @@
     padding-top: 10%;
 }
 
+.main{
+    display: flex;
+}
+
+.droite{
+    margin: 0 auto;
+}
+
+.map{
+    position: fixed;
+    width: 40%;
+    height: 60%;
+    right: 6%;
+    top: 20%;
+}
 
 .bg{
     background-image: url("https://images.pexels.com/photos/917494/pexels-photo-917494.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260");
     height: 100%;
-    
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
 }
 
-
 .field{
     max-width: 400px;
 }
 
-
 .three.fields{
     max-width: 1700px;
 }
-
 
 .btn.btn-light{
     border: 1px solid black;
     border-radius: 8px;
 }
 
-.ui.unstackable.items{
+.main{
     margin-left: 2%;
-}
-
-.resultat{
-    margin-left: 2%;
-    max-width: 1000px;
 }
 
 .content{
@@ -88,17 +94,26 @@
     margin: 0 auto;
 }
 
-.title{
-    text-align: center;
-}
-
-.card-group{
-    width: 400px;
-    justify-content: center;
-    margin: 30px 116px 0px 116px;
-}
-
 .a{
     text-decoration: none;
 }
 
+.pdp{
+    display: inline;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+.annonce{
+    margin: 20px 116px ;
+}
+
+.editannonce{
+    width: 500px;
+    margin: 0 auto;
+}
+
+.croix{
+    text-align: center;
+}
