@@ -75,7 +75,7 @@ else
   $pdostatementDA = $pdo->query($sql);
   $annonce = ($pdostatementDA->fetch());
   $previ = False;
-  
+
   if(empty($_GET['dd']) || empty($_GET['da']) || empty($_GET['places']))
   {
     $previ = True;
@@ -99,78 +99,95 @@ else
   $image = $image->fetchAll();
 
   ?>
-    
 
 <div class="container">
-    <div>
-      <h1><?php echo $annonce['titre'];?></h1>
-    </div>
-    <div id="carouselExampleInterval" class="carousel slide" data-ride="carousel">
-      <div class="carousel-inner">
-        <div class="carousel-item active">
-          <img src="<?php echo $image[0]['nom'];?>" class="d-block w-100" alt="...">
-        </div>
-        <?php 
-          for ($i = 1; $i<count($image); $i++)
-          {?>
-        <div class="carousel-item">
-          <img src="<?php echo $image[$i]['nom'];?>" class="d-block w-100" alt="...">
-        </div>
-          <?php } ?>
+  <div class="annonce">
+    <h1><?php echo $annonce['titre'];?></h1>
+  </div>
+  <div id="carouselExampleInterval" class="carousel slide" data-ride="carousel">
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img src="<?php echo $image[0]['nom'];?>" class="d-block w-100" alt="...">
       </div>
-      <a class="carousel-control-prev" href="#carouselExampleInterval" role="button" data-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="sr-only">Previous</span>
-      </a>
-      <a class="carousel-control-next" href="#carouselExampleInterval" role="button" data-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="sr-only">Next</span>
-      </a>
-    </div>    
+      <?php 
+        for ($i = 1; $i<count($image); $i++)
+        {?>
+      <div class="carousel-item">
+        <img src="<?php echo $image[$i]['nom'];?>" class="d-block w-100" alt="...">
+      </div>
+    </div>
+    <a class="carousel-control-prev" href="#carouselExampleInterval" role="button" data-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#carouselExampleInterval" role="button" data-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </a>
+    <?php } ?>
+  </div>    
 
-<div class="ui clearing segment">
-    <div>
-        <h4 class="pdp">Propriétaire : <a href="membre.php?id=<?php echo $loueur["id_utilisateur"]?>"><?php echo $loueur['prenom']?></h4><br>
+  <div class="ui clearing segment">
+      <div class="card-body">
+        <!--Title-->
+        <h4 class="card-title"><strong>Propriétaire : <a href="membre.php?id=<?php echo $loueur["id_utilisateur"]?>"><?php echo $loueur['prenom']?></strong></h4>
         <a href="conversation.php?id=<?php echo $loueur['id_utilisateur'];?>" class = "ui button">Envoyer un message</a>
-
-        <h4>Nombre maximum d'occupants : <?php echo $annonce["locataires_max"];?></h4>
-        <h4>Prix par personne et par nuitée : <?php echo $annonce["prix"];?> €</h4>
-        <?php if (!$previ)
-        {
+        <hr>
+        <div class="display">
+          <!--Text-->
+          <div class="div1">
+            <h5 for="description_annonce"><strong>Description :</strong></h5>
+            <h5 id=description_annonce><?php echo $annonce["description"];?></h5>
+          </div>
+          <div class="div2">
+            <h5><strong>Nombre maximum d'occupants :</strong></h5>
+            <h5 id=description_annonce><?php echo $annonce["locataires_max"];?> occupants</h5>
+          </div>
+          <div class="div3">
+            <h5><strong>Prix par personne et par nuitée :</strong></h5>
+            <h5 id=description_annonce><?php echo $annonce["prix"];?> €</h5>
+          </div>
+          <?php if (!$previ)
+          {
           ?> 
-          <h4>Prix total : <?php echo $prix; ?> €</h4>
+            <div class="div4">
+              <h5><strong>Prix total : </strong></h5>
+              <h5 id=description_annonce><?php echo $prix; ?> €</h5>
+            </div>
           <?php 
-        }
-        ?>
-    </div>
-    <div class="ui grey inverted segment"></div>
-    <div class="description">
-      <h4 for="description_annonce">Description :</h4>
-      <h4 id=description_annonce><?php echo $annonce["description"];?></h4>
-    </div>
-    <div >
-      <?php
-      if(!$previ)
-      {
-        if (!empty($_SESSION["login"]) && $_SESSION['login'] == 1){
+          }
           ?>
-          <a class="ui big button" href="reservation.php?id_annonce=<?php echo $annonce["id_annonce"];?>&da=<?php echo $_GET['da'];?>&dd=<?php echo $_GET['dd'];?>&places=<?php echo $_GET['places'];?>">Réserver maintenant</a> 
+        </div>
           <?php
-        }
-        else
-        {
-          ?>
-          <a class= "ui big button" href="connexion.php">Se connecter pour réserver</a>
-          <?php
-        }
-      }
-      else
-      {
-        echo "<p><br>Mode de prévisualisation de l'annonce. Veuillez <a href= 'index.php'>lancer une recherche</a> pour réserver.</p>";
-      }
-      ?>  
-    </div>
-</div>
+          if(!$previ)
+          {
+            if (!empty($_SESSION["login"]) && $_SESSION['login'] == 1){
+              ?>
+              <div class="button">
+                <a class="btn btn-outline-dark" href="reservation.php?id_annonce=<?php echo $annonce["id_annonce"];?>&da=<?php echo $_GET['da'];?>&dd=<?php echo $_GET['dd'];?>&places=<?php echo $_GET['places'];?>">Réserver</a>
+              </div> 
+              <?php
+            }
+            else
+            {
+              ?>
+              <div class="button">
+                <a class= "btn btn-outline-dark" href="connexion.php">Se connecter pour réserver</a>
+              </div> 
+              <?php
+            }
+          }
+          else
+          {
+            ?> 
+            <div class="button">
+              <p>Mode de prévisualisation de l'annonce. Veuillez <a href= 'index.php'>lancer une recherche</a> pour réserver.</p>
+            </div>
+          <?php 
+          }
+          ?>  
+      </div>
+  </div>
 
 
 </div>
@@ -197,3 +214,4 @@ else
     ></script>
 
 <?php include("inc/footer.php");?>
+

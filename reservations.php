@@ -1,4 +1,73 @@
-<?php include("inc/header.php");?>
+<?php include("inc/data.php");?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Airbnb</title>
+    <link rel="stylesheet" href="css/menu.css">
+    <link rel="stylesheet" href="css/reservation.css">
+    <link href='https://css.gg/css' rel='stylesheet'>
+    <link rel="icon" href="img/mdb-favicon.ico" type="image/x-icon">
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <!-- Material Design Bootstrap -->
+    <link rel="stylesheet" href="css/mdb.min.css">
+    <!-- Your custom styles (optional) -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
+    <script
+    src="https://code.jquery.com/jquery-3.1.1.min.js"
+    integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+    crossorigin="anonymous"></script>
+    <script src="semantic/dist/semantic.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+</head>
+<body>
+<header>
+<div class="shadow-sm p-3 mb-5 bg-white rounded">
+  <nav>
+      <ul class="nav justify-content-end">
+          <a href="index.php"><img class="logo" src="img/logo_airbnb.jpg" alt="logo" href="index.php"></a>
+
+      <?php
+      if(empty($_SESSION["login"]))
+      {?>
+
+      <li class="nav-item">
+          <a class="nav-link" href="connexion.php">Connexion</a>
+      </li>
+
+      <li class="nav-item">
+          <a class="nav-link" href="creercompte.php">Inscription</a>
+      </li>
+      <?php 
+      }
+      else if ($_SESSION["login"] == 1)
+      {?>
+
+      <li class ="nav-item">
+          <p class="nav-link"><?php echo $donnees_utilisateur["capital"];?> €</p>
+      </li>
+
+      <li class="nav-item">
+          <a class="nav-link" href="nouvelleannonce.php">Poster une annonce</a>
+      </li>
+
+      <li class="nav-item">
+          <a class="nav-link" href="compte.php">Espace personnel</a>
+      </li>
+
+      <li class="nav-item">
+          <a class="nav-link" href="?dec=True">Déconnexion</a>
+      </li>
+
+      <?php } ?>
+      </ul>
+  </nav>
+</div>
+</header>
+
 
 <?php 
 if(empty($_SESSION["login"]))
@@ -29,44 +98,90 @@ if(!empty($_GET) && !empty($_GET['annule']))
 
 ?>
 
-<h1>Vos réservations</h1>
-<?php 
-for($i = 0 ; $i < count($reservations) ; $i ++)
-{
-    if(empty($reservations[$i]['date_annulation']))
-    {   
-        ?>
-        <div>
-        <h3>
-            <a href="annonce.php/id=<?php echo $reservations[$i]['id_annonce_reservee']?>">
-            <?php echo $reservations[$i]["titre"];?>
-            </a>
-        </h3>
-        <p><a href="conversation.php?id=<?php echo $reservations[$i]['id_publicateur'];?>">Envoyer un message à <?php echo $reservations[$i]['prenom'] ;?></a></p>
-        <p><a href="?annule=<?php echo $reservations[$i]['id_reservation'] ;?>" onclick="return confirm(<?php echo 'Êtes vous sûr'.$conjugaison.'?'; ?>)">Annuler la réservation</a></p>
-        <p><a href="membre.php?id=<?php echo $reservations[$i]['id_publicateur'];?>">Voir le profil de <?php echo $reservations[$i]['prenom'] ;?></a></p>
-        </div> 
-        <?php 
-    }
-    else
-    {
-        ?>
-        <div>
-        <h3>
-            <a href="annonce.php?id=<?php echo $reservations[$i]['id_annonce_reservee']?>">
-            <?php echo $reservations[$i]["titre"];?>
-            </a>
-            </h3>
-            <p>Cette réservation a été annulée.</p>
-        </div>
-
-
-        <?php
-    } 
-}
-
-
-?>
+<div class="main">
+    <div class="reservation">
+        <h1 class="annonce"> Toutes vos réservations : </h1>
+        <table id="dtBasicExample" class="table table-striped table-bordered" cellspacing="0" width="100%">
+            <thead>
+                <tr>
+                <th class="th-sm">Annonce
+                </th>
+                <th class="th-sm">Propriétaire
+                </th>
+                <th class="th-sm">Date d'arrivée
+                </th>
+                <th class="th-sm">Date de départ
+                </th>
+                <th class="th-sm">Prix
+                </th>
+                <th class="th-sm">Annuler
+                </th>
+                </tr>
+            </thead>
+            <?php 
+            for($i = 0 ; $i < count($reservations) ; $i ++)
+            {
+                if(empty($reservations[$i]['date_annulation']))
+                {   
+                ?>
+            <tbody>
+                <tr>
+                <td><a href="annonce.php?id=<?php echo $reservations[$i]['id_annonce_reservee']?>"><?php echo $reservations[$i]["titre"]?></a></td>
+                <td><a href="membre.php?id=<?php echo $reservations[$i]['id_publicateur'];?>"><?php echo $reservations[$i]['prenom'] ?></a></td>
+                <td><?php echo $reservations[$i]["date_debut"]?></td>
+                <td><?php echo $reservations[$i]["date_fin"]?></td>
+                <td><?php echo $reservations[$i]["prix_reservation"]?>€</td>
+                <td><a href="?annule=<?php echo $reservations[$i]['id_reservation'] ?>" onclick="return confirm(<?php echo 'Êtes vous sûr'.$conjugaison.'?' ?>)">Annuler la réservation</td>
+                </tr>
+            </tbody>
+            <?php 
+            }
+        }
+            ?>
+        </table>
+    </div>
+            <div class="annulation">
+                <h1 class="annonce"> Vos réservations annulées :</h1>
+                <table id="dtBasicExample" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                    <thead>
+                        <tr>
+                        <th class="th-sm">Annonce
+                        </th>
+                        <th class="th-sm">Propriétaire
+                        </th>
+                        <th class="th-sm">Date d'arrivée
+                        </th>
+                        <th class="th-sm">Date de départ
+                        </th>
+                        <th class="th-sm">Prix
+                        </th>
+                        <th class="th-sm">Date d'annulation
+                        </th>
+                        </tr>
+                    </thead>
+                    <?php 
+                    for($i = 0 ; $i < count($reservations) ; $i ++)
+                    {
+                    if(!empty($reservations[$i]['date_annulation']))
+                    {
+                    ?>
+                    <tbody>
+                        <tr>
+                        <td><a href="annonce.php?id=<?php echo $reservations[$i]['id_annonce_reservee']?>"><?php echo $reservations[$i]["titre"]?></a></td>
+                        <td><a href="membre.php?id=<?php echo $reservations[$i]['id_publicateur'];?>"><?php echo $reservations[$i]['prenom'] ?></a></td>
+                        <td><?php echo $reservations[$i]["date_debut"]?></td>
+                        <td><?php echo $reservations[$i]["date_fin"]?></td>
+                        <td><?php echo $reservations[$i]["prix_reservation"]?>€</td>
+                        <td><?php echo $reservations[$i]["date_annulation"]?></td>
+                        </tr>
+                    </tbody>
+                <?php 
+                } 
+                }
+                ?>
+                 </table>
+            </div>
+</div>
 
 
 <?php include("inc/footer.php");?>

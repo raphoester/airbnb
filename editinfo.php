@@ -67,6 +67,8 @@ if (!empty($_POST))
 
     if(!empty($_POST["ancienMDP"]) && !empty($_POST["nouveauMDP"]) && !empty($_POST["nouveauMDPConf"]) && (md5($_POST["ancienMDP"]) == $donnees_utilisateur["mot_de_passe"]) && (md5($_POST["nouveauMDP"]) == md5($_POST["nouveauMDPConf"])))
     {
+        echo $_POST["nouveauMDP"];
+        echo md5($_POST["nouveauMDP"]);
         $sql = "update utilisateur set mot_de_passe ='". md5($_POST['nouveauMDP'])."'where id_utilisateur =".$donnees_utilisateur['id_utilisateur'].";";
         $pdo->exec($sql);
     }

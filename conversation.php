@@ -1,4 +1,72 @@
-<?php include('inc/header.php');?>
+<?php include("inc/data.php");?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Airbnb</title>
+    <link rel="stylesheet" href="css/menu.css">
+    <link rel="stylesheet" href="css/message.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
+    <link href='https://css.gg/css' rel='stylesheet'>
+    <link rel="icon" href="img/mdb-favicon.ico" type="image/x-icon">
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <!-- Material Design Bootstrap -->
+    <link rel="stylesheet" href="css/mdb.min.css">
+    <!-- Your custom styles (optional) -->
+    <link rel="stylesheet" href="css/style.css">
+    <script
+    src="https://code.jquery.com/jquery-3.1.1.min.js"
+    integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+    crossorigin="anonymous"></script>
+    <script src="semantic/dist/semantic.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+</head>
+<body>
+<header>
+<div class="shadow-sm p-3 mb-5 bg-white rounded">
+    <nav>
+        <ul class="nav justify-content-end">
+            <a href="index.php"><img class="logo" src="img/logo_airbnb.jpg" alt="logo" href="index.php"></a>
+
+        <?php
+        if(empty($_SESSION["login"]))
+        {?>
+
+        <li class="nav-item">
+            <a class="nav-link" href="connexion.php">Connexion</a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="creercompte.php">Inscription</a>
+        </li>
+        <?php 
+        }
+        else if ($_SESSION["login"] == 1)
+        {?>
+
+        <li class ="nav-item">
+            <p class="nav-link"><?php echo $donnees_utilisateur["capital"];?> €</p>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="nouvelleannonce.php">Poster une annonce</a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="compte.php">Espace personnel</a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="?dec=True">Déconnexion</a>
+        </li>
+
+        <?php } ?>
+        </ul>
+    </nav>
+</div>
+</header>
 
 
 
@@ -95,38 +163,47 @@ usort($messages, "tri");
 ?>
 
 <section>
-    <div>
-        <div>
-            <a href="messages.php">◀️Retour à la liste des conversations</a>
-            <h1>Conversation avec <a href="membre.php?id=<?php echo $interlocuteur['id_utilisateur'];?>"><?php echo $interlocuteur["prenom"]?></a> :</h1>
+<div class="main">
+    <a href="messages.php">◀️Retour à la liste des conversations</a>
+    <div class="ui placeholder segment">
+        <div class="top">
+            <h1 class="ui dividing header">Conversation avec <a href="membre.php?id=<?php echo $interlocuteur['id_utilisateur'];?>"><?php echo $interlocuteur["prenom"]?></a> :</h1>
         </div>
-        <div>
+        <div class="message">
             <?php
-                for($i=0; $i<count($messages); $i++)
-                {
-                    if(($messages[$i]["id_expediteur"] == $interlocuteur["id_utilisateur"]) && ($messages[$i]["id_destinataire"] == $donnees_utilisateur["id_utilisateur"]))//si le message a été envoyé par l'interlocuteur
+                    for($i=0; $i<count($messages); $i++)
                     {
-                        ?>
-                        <div class= 'message'>
-                            <label for="message-contenu"><?php echo $messages[$i]["date_envoi"] ;?></label>
-                            <p id="message-contenu" style="color:red;"><?php echo $messages[$i]["contenu"];?>
-                            <a href="?id_message=<?php echo $messages[$i]["id_message"];?>&id=<?php echo $interlocuteur["id_utilisateur"];?>">❌</a>
-                            <a href="signalement.php?id=<?php echo $messages[$i]["id_message"];?>">🚩</a>
-                            </p> 
-                        </div>
-                    <?php
+                        if(($messages[$i]["id_expediteur"] == $interlocuteur["id_utilisateur"]) && ($messages[$i]["id_destinataire"] == $donnees_utilisateur["id_utilisateur"]))//si le message a été envoyé par l'interlocuteur
+                        {
+                            ?>
+                            <div>
+                                <label for="message-contenu"><?php echo $messages[$i]["date_envoi"] ;?></label>
+                                <p id="message-contenu" style="color:red;"><?php echo $messages[$i]["contenu"];?>
+                                <a href="?id_message=<?php echo $messages[$i]["id_message"];?>&id=<?php echo $interlocuteur["id_utilisateur"];?>">❌</a>
+                                <a href="signalement.php?id=<?php echo $messages[$i]["id_message"];?>">🚩</a>
+                                </p> 
+                            </div>
+                            <div class="ui grey inverted segment"></div>
+                        <?php
+                        }
+                        else
+                        {?>
+                            <div class="d-flex justify-content-end">
+                                <ul class="test1">
+                                    <li>
+                                    <label for="message-contenu"><?php echo $messages[$i]["date_envoi"] ;?></label>
+                                    </li>
+                                    <li>
+                                        <p id="message-contenu" style="color:blue;"><?php echo $messages[$i]["contenu"];?>
+                                        <a href="?id_message=<?php echo $messages[$i]["id_message"];?>&id=<?php echo $interlocuteur["id_utilisateur"];?>">❌</a>
+                                        </p> 
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="ui grey inverted segment"></div>
+                        <?php 
+                        }
                     }
-                    else
-                    {?>
-                        <div class= 'message'>
-                            <label for="message-contenu"><?php echo $messages[$i]["date_envoi"] ;?></label>
-                            <p id="message-contenu" style="color:blue;"><?php echo $messages[$i]["contenu"];?>
-                            <a href="?id_message=<?php echo $messages[$i]["id_message"];?>&id=<?php echo $interlocuteur["id_utilisateur"];?>">❌</a>
-                            </p> 
-                        </div>
-                    <?php 
-                    }
-                }
             $bloque = False;
             for($j=0;$j<count($interlocuteurs_bloquants); $j++)
             {
@@ -169,12 +246,12 @@ usort($messages, "tri");
 
             if ($bloque == False)
             {?>
-                <div>       
-                
+                <div class="test">       
                     <form action="" method = "POST">
-                        <label for="message"></label>
-                        <input type="text" id="message" name ='message'>
-                        <input type="submit" value = "Envoyer">
+                    <div class="form-group basic-textarea">
+                        <textarea class="form-control pl-2 my-0" type="text" id="message" name ="message" rows="3" placeholder="Entrez votre message ici..."></textarea>
+                        <input type="submit" value = "Envoyer" class="btn btn-primary">
+                    </div>
                     </form>
                 </div>
          
@@ -184,11 +261,11 @@ usort($messages, "tri");
                 <?php
             }
             ?>
-            
+        </div>
 
         
-        </div>
     </div>
+</div>
 </section>
 
 

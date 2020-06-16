@@ -90,7 +90,7 @@ if(!empty($_POST))
 if(!empty($_GET) && !empty($_GET['idsuppr']))
 {
     $_GET['idsuppr'] = mysqli_real_escape_string($mysqli, $_GET['idsuppr']);
-    $images = $pdo->query("select * from image where id_annonce = ".$annonce_a_modifier['id_annonce'].";")->fetchAll();
+    $images = $pdo->query("select * from image where id_annonce_image = ".$annonce_a_modifier['id_annonce'].";")->fetchAll();
     for ($i = 0; $i<count($images); $i++)
     {
         if ($images[$i]["id_image"] == $_GET['idsuppr'])
@@ -101,61 +101,84 @@ if(!empty($_GET) && !empty($_GET['idsuppr']))
 }
 
 ?>
-<div>
-    <div>
-        <h1>Modifier l'annonce</h1>
-    </div>
-    <div>
-        <form action="" method = "POST" enctype="multipart/form-data">
-        <div class = "field">
-            <label for="titre">Titre de l'annonce</label><br>
-            <input type="text" name="titre" id="titre" placeholder = "<?php echo $annonce_a_modifier["titre"];?>">
-        </div>
-        <div class="field">
-            <label for="desc">Description</label><br>
-            <textarea name="description" id="desc" cols="30" rows="5" placeholder = "<?php echo $annonce_a_modifier["description"];?>"></textarea>
-        </div>
-        <div class="field">
-            <label for="prix">Prix par jour et par personne</label><br>
-            <input type="number" min="1" step="any" value="" id="prix" name="prix" max= 100000 placeholder = "<?php echo $annonce_a_modifier["prix"];?>">€
-        </div>
-        
-        <div class="field">
-            <label for="ville">Ville</label><br>
-            <input type="text" id="ville" placeholder="Porto" name="ville" placeholder = "<?php echo $annonce_a_modifier["ville"];?>">
-        </div>
 
-        <div class="field">
-            <label for="places">Nombre maximal de locataires</label><br>
-            <input type="number" min="1" id="places" name="places" max = 150 placeholder = "<?php echo $annonce_a_modifier["locataires_max"];?>">
+<div class="editannonce">
+    <div class="ui placeholder segment">
+        <div class="column">
+            <h3 class="ui dividing header">Modifier l'annonce</h3>
+            <form action="" method="POST" enctype="multipart/form-data">
+                <div class="ui form">
+                    <div class="field">
+                        <label for="titre">Titre de l'annonce</label>
+                        <input type="text" name="titre" id="titre" placeholder = "<?php echo $annonce_a_modifier["titre"];?>">
+                    </div>
+                    <div class="field">
+                        <label for="desc">Description</label>
+                        <textarea name="description" id="desc" cols="30" rows="5" placeholder = "<?php echo $annonce_a_modifier["description"];?>"></textarea>
+                    </div>
+                    <div class="field">
+                        <label for="courriel">Prix par jour et par personne</label>
+                        <div class="ui left icon input">
+                            <input type="number" min="1" step="any" value="" id="prix" name="prix" max= 100000 placeholder = "<?php echo $annonce_a_modifier["prix"];?>">
+                            <i class="euro icon"></i>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label for="pdp">Ville</label>
+                        <div>
+                            <input type="text" id="ville" name="ville" placeholder = "<?php echo $annonce_a_modifier["ville"];?>">
+                        </div>
+                    </div>
+                    <div class="field">
+                    <label for="places">Nombre maximal de locataires</label>
+                        <div class="ui left icon input">
+                            <input type="number" min="1" id="places" name="places" max = 150 placeholder = "<?php echo $annonce_a_modifier["locataires_max"];?>">
+                            <i class="bed icon"></i>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <?php 
+                            $sql = "select * from image where id_annonce_image = ".$annonce_a_modifier['id_annonce'].";";
+                            $liste_images = $pdo->query($sql)->fetchAll();
+
+                            for ($i = 0; $i<count($liste_images); $i++)
+                            {
+                            ?>
+                                <img style = "width : 200px; height : 150px;"src="<?php echo $liste_images[$i]['nom'];?>" id = 'image' alt="image-annonce"> 
+                                <label for="img"><a href="?id=<?php echo $annonce_a_modifier['id_annonce'];?>&idsuppr=<?php echo $liste_images[$i]['id_image'];?>">
+                                <div class="croix">
+                                    ❌
+                                </div>
+                                </a></label>   
+                            <?php
+                            }
+                            
+                        ?>
+                    <div class="field">
+                        <label for="img">Images (formats acceptés : jpeg, jpg, png, gif)</label>
+                        <input type="file" id="img" name="img[]" multiple>
+                    </div>
+                    <input class="ui blue submit button" type="submit" value="Confirmer la modification"></input>
+                </div>
+            </form>
         </div>
-
-        <div class="field">
-            <?php 
-                $sql = "select * from image where id_annonce_image = ".$annonce_a_modifier['id_annonce'].";";
-                $liste_images = $pdo->query($sql)->fetchAll();
-
-                for ($i = 0; $i<count($liste_images); $i++)
-                {
-                ?>
-                    <img style = "width : 200px; height : 150px;"src="<?php echo $liste_images[$i]['nom'];?>" id = 'image' alt="image-annonce"> 
-                    <label for="image"><a href="?id=<?php echo $annonce_a_modifier['id_annonce'];?>&idsuppr=<?php echo $liste_images[$i]['id_image'];?>">❌</a></label>   
-                <?php
-                }
-                
-            ?>
-
-            <label for="img">Images (formats acceptés : jpeg, jpg, png, gif)</label><br>
-            <input type="file" id="img" name="img[]" multiple>
-        </div>
-
-        <div class="field">
-            <input type="submit" value = "Valider !">
-        </div>
-
-        
-        </form>
     </div>
 </div>
 
 <?php include("inc/footer.php");?>
+
+<script
+      src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+      integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+      integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+      crossorigin="anonymous"
+    ></script>
