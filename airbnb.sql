@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : lun. 15 juin 2020 à 13:34
+-- Généré le : mar. 16 juin 2020 à 13:14
 -- Version du serveur :  10.4.11-MariaDB
 -- Version de PHP : 7.4.4
 
@@ -76,7 +76,6 @@ INSERT INTO `annonce` (`id_annonce`, `ville`, `titre`, `description`, `locataire
 (19, 'Porto', 'logement social de pauvre', 'nid à sdf et a crackés du cul', 16, '6', 5),
 (30, 'Paris', 'Petit appartement à paris', 'Appartement de 20m², il y a des toilettes et une salle de bains dans le couloir tu vas voir c caley', 1, '85', 5),
 (64, 'Poissy', 'Appartement pisciacais', 'ATTONTION C CHÉ OIM DONK FETEZ PA LÉ KON', 3, '2', 5),
-(65, 'Achères', 'Maison de caractère à 30 minutes de Paris', 'Maison en forêt qu\'est vachement bien', 6, '20', 10),
 (66, 'Saint Rémy les Chevreuses', 'ANNONCE', 'AAAAAAAAAAAA', 8, '15', 5);
 
 -- --------------------------------------------------------
@@ -123,40 +122,6 @@ CREATE TABLE `image` (
   `id_annonce_image` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Déchargement des données de la table `image`
---
-
-INSERT INTO `image` (`id_image`, `nom`, `id_annonce_image`) VALUES
-(0, 'img/annonces/159222059110IMG_20190814_160424.jpg', 65),
-(1, 'img/pika.jpg', 4),
-(2, 'img/pika.jpg', 1),
-(3, 'img/pika.jpg', 3),
-(4, 'img/l\'ovni.jpg', 3),
-(5, 'img/5apartment-building-1149751_1280.jpg1591718313', 30),
-(43, 'img/annonces/1591726193550e84488-interracialviolentcrime.jpg', 64),
-(44, 'img/annonces/15917261935apartment-building-1149751_1280.jpg', 64),
-(45, 'img/annonces/15917261945couv-différences-entre-camper-et-stationner.jpg', 64),
-(46, 'img/annonces/15917261945fond_de_base.jpg', 64),
-(47, 'img/annonces/15917261945Inkedelizabeth 2 angleterre _LI.jpg', 64),
-(48, 'img/annonces/15917261945téléchargement.jpg', 64),
-(49, 'img/annonces/15917261945unknown.png', 64),
-(50, 'img/annonces/159173310510114-modele-maison-individuelle-a-etage-1.jpg', 65),
-(51, 'img/annonces/159173310510amenagement-interieur-04042018-1151-e1522835690753.jpg', 65),
-(52, 'img/annonces/159173310510CE3.jpg', 65),
-(53, 'img/annonces/159173310510maison-de-plain-pied-seloger-construire.jpg', 65),
-(57, 'img/annonces/15919704155Ancienne horloge anglaise buckingham.jpg', 66),
-(58, 'img/annonces/15919704165artisanat horlogerie traditionnel ancien.jpg', 66),
-(59, 'img/annonces/15919704165banner-1240822_1280.jpg', 66),
-(60, 'img/annonces/15919704165buckingham-palace angleterre traditionnelle artisanat savoir faire .jpg', 66),
-(61, 'img/annonces/15919704165elizabeth 2 angleterre .jpg', 66),
-(62, 'img/annonces/15919704165fractal-1280079_1280.jpg', 66),
-(63, 'img/annonces/15919704165Horloge_abeilles_bois_2000x.jpg', 66),
-(64, 'img/annonces/15919704165Horloge_vintage_retro_70_2000x.jpg', 66),
-(65, 'img/annonces/15919704165jon-tyson-WaOwBKTiQcg-unsplash.jpg', 66),
-(66, 'img/annonces/15919704165product-image-935686220_2000x.jpg', 66),
-(67, 'img/annonces/15919704165scientific-2040795_1280.jpg', 66);
-
 -- --------------------------------------------------------
 
 --
@@ -187,7 +152,7 @@ INSERT INTO `message` (`id_message`, `date_envoi`, `contenu`, `id_destinataire`,
 (42, '2020-06-09 14:57:32', 'Bonjour abc !', 2, 5),
 (48, '2020-06-09 21:55:51', 'Coucou c\'est moi ', 6, 5),
 (49, '2020-06-10 12:56:46', 'salut mon pote ', 2, 5),
-(52, '2020-06-10 16:51:11', 'salut', 5, 10),
+(52, '2020-06-10 16:51:11', '<p style = \'color : red;\'><strong><i>Ce message a été supprimé par un administrateur car il ne respecte pas les règles de la communauté.</i></strong></p>', 5, 10),
 (54, '2020-06-15 13:11:37', 'Salut', 5, 5),
 (55, '2020-06-15 13:24:52', 'yo le rap', 5, 10);
 
@@ -212,9 +177,11 @@ CREATE TABLE `reservation` (
 --
 
 INSERT INTO `reservation` (`id_annonce_reservee`, `id_reservant`, `id_reservation`, `date_debut`, `date_fin`, `date_annulation`, `prix_reservation`) VALUES
-(65, 5, 7, '2020-07-01', '2020-08-01', '2020-06-15', 620),
 (5, 5, 8, '2020-11-01', '2021-01-01', NULL, 3721),
-(15, 5, 9, '2020-08-02', '2020-08-11', '2020-06-15', 9);
+(15, 5, 9, '2020-08-02', '2020-08-11', '2020-06-15', 9),
+(5, 10, 10, '2020-01-01', '2020-02-01', NULL, 5673),
+(10, 2, 11, '2020-01-01', '2026-01-01', NULL, 438400),
+(18, 9, 12, '2016-03-22', '2024-01-01', NULL, 1420500);
 
 -- --------------------------------------------------------
 
@@ -237,10 +204,10 @@ CREATE TABLE `signalement` (
 INSERT INTO `signalement` (`id_signalement`, `id_message_signale`, `description`, `motif`, `traitement`) VALUES
 (1, 4, 'description signalement ', 'insulte', 1),
 (16, 6, 'il é pa gentil ', 'insulte', 1),
-(17, 8, 'ouin ouin il é pa jonti', 'insulte', 0),
+(17, 8, 'ouin ouin il é pa jonti', 'insulte', 1),
 (18, 8, 'caca', 'insulte', 1),
-(19, 8, 'C pas gentil ', 'harcelement', 0),
-(21, 52, 'c pas bien \r\n', 'harcelement', 0);
+(19, 8, 'C pas gentil ', 'harcelement', 1),
+(21, 52, 'c pas bien \r\n', 'harcelement', 1);
 
 -- --------------------------------------------------------
 
@@ -270,15 +237,15 @@ CREATE TABLE `utilisateur` (
 
 INSERT INTO `utilisateur` (`id_utilisateur`, `prenom`, `nom`, `sexe`, `email`, `date_creation_compte`, `note`, `statut`, `mot_de_passe`, `capital`, `image_profil`, `banni`, `date_fin_exclusion`) VALUES
 (1, 'alexis', 'richy', 'm', 'alexisrichy@gmail.com', '2011-12-10', 4.5, 'ambassadeur', 'd2104a400c7f629a197f33bb33fe80c0', 0, 'img/site/profil_defaut.jpg', 0, '2000-01-01'),
-(2, 'abc', 'abc', 'm', 'abc@abc.abc', '2020-06-04', NULL, 'Nouvel arrivant', 'd2104a400c7f629a197f33bb33fe80c0', 0, 'img/site/profil_defaut.jpg', 0, '2000-01-01'),
+(2, 'abc', 'abc', 'm', 'abc@abc.abc', '2020-06-04', NULL, 'Nouvel arrivant', 'd2104a400c7f629a197f33bb33fe80c0', 741414563, 'img/site/profil_defaut.jpg', 0, '2000-01-01'),
 (3, 'bécu', 'Juliette', 'f', 'juliettebecu@gmail.com', '2020-06-04', NULL, 'Nouvel arrivant', 'd41d8cd98f00b204e9800998ecf8427e', 0, 'img/site/profil_defaut.jpg', 0, '2000-01-01'),
 (4, 'proutent', 'jeanne charlotte ', 'f', 'jc@jc.fr', '2020-06-04', NULL, 'Nouvel arrivant', 'd41d8cd98f00b204e9800998ecf8427e', 0, 'img/site/profil_defaut.jpg', 0, '2000-01-01'),
-(5, 'Marcia', 'De Noord', 'f', 'marciadenoord@gmail.com', '2020-06-04', NULL, 'Nouvel arrivant', 'e9d3233b0e482f2e96b7a64f90a04e48', 1748, 'img/profils/15919748015', 0, '2020-06-01'),
-(6, 'Precious', 'Pelenio', 'm', 'precious.pelenio@ynov.com', '2020-06-05', NULL, 'Nouvel arrivant', 'fabd6b235e04e220538807d265b92a7b', 0, 'img/site/profil_defaut.jpg', 0, '2020-06-19'),
+(5, 'Marcia', 'De Noord', 'f', 'marciadenoord@gmail.com', '2020-06-04', NULL, 'Nouvel arrivant', 'e9d3233b0e482f2e96b7a64f90a04e48', 7418, 'img/site/profil_defaut.jpg', 0, '2020-06-01'),
+(6, 'Precious', 'Pelenio', 'm', 'precious.pelenio@ynov.com', '2020-06-05', NULL, 'Nouvel arrivant', 'fabd6b235e04e220538807d265b92a7b', 0, 'img/site/profil_defaut.jpg', 1, '2020-06-19'),
 (7, 'Girl', 'Barbie', 'f', 'barbie@barbie.com', '2020-06-05', NULL, 'Nouvel arrivant', 'f632fa6f8c3d5f551c5df867588381ab', 0, 'img/site/profil_defaut.jpg', 0, '2000-01-01'),
 (8, 'Neige', 'Blanche', 'f', 'blanche@neige.com', '2020-06-05', NULL, 'Nouvel arrivant', '900150983cd24fb0d6963f7d28e17f72', 0, 'img/site/profil_defaut.jpg', 0, '2000-01-01'),
-(9, 'Roi du monde', ':)', 'm', 'roidumonde@prout.com', '2020-06-05', NULL, 'Nouvel arrivant', 'd2104a400c7f629a197f33bb33fe80c0', 0, 'img/site/profil_defaut.jpg', 1, '2000-01-01'),
-(10, 'Guillemette', 'Dussart', '', 'guillemette.dussart@yahoo.fr', '2020-06-09', NULL, 'Nouvel arrivant', '944de8673b0f2d1603a6ff33b18b8192', 0, 'img/profils/159222036210IMG_20190802_152925.jpg', 0, '2000-01-01');
+(9, 'Roi du monde', ':)', 'm', 'roidumonde@prout.com', '2020-06-05', NULL, 'Nouvel arrivant', 'd2104a400c7f629a197f33bb33fe80c0', 122036289, 'img/site/profil_defaut.jpg', 0, '2000-01-01'),
+(10, 'Guillemette', 'Dussart', 'f', 'guillemette.dussart@yahoo.fr', '2020-06-09', NULL, 'Nouvel arrivant', '944de8673b0f2d1603a6ff33b18b8192', 80478, 'img/profils/159222036210IMG_20190802_152925.jpg', 0, '2000-01-01');
 
 --
 -- Index pour les tables déchargées
@@ -355,13 +322,19 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT pour la table `annonce`
 --
 ALTER TABLE `annonce`
-  MODIFY `id_annonce` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
+  MODIFY `id_annonce` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=70;
 
 --
 -- AUTO_INCREMENT pour la table `blocage`
 --
 ALTER TABLE `blocage`
   MODIFY `id_blocage` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+
+--
+-- AUTO_INCREMENT pour la table `image`
+--
+ALTER TABLE `image`
+  MODIFY `id_image` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT pour la table `message`
@@ -373,7 +346,7 @@ ALTER TABLE `message`
 -- AUTO_INCREMENT pour la table `reservation`
 --
 ALTER TABLE `reservation`
-  MODIFY `id_reservation` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id_reservation` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT pour la table `signalement`
